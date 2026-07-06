@@ -1,5 +1,5 @@
 // ---Dependencies
-import { ReactElement, useCallback, useEffect, useState } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 // ---Components
 import { ItemsList, type Item } from '../ItemsList/ItemsList'
 import { CreateItemForm } from '../CreateItemForm/CreateItemForm'
@@ -26,7 +26,8 @@ export function VanillaExample(): ReactElement {
   const [creating, setCreating] = useState(false)
 
   // -----------------------MAIN METHODS
-  const fetchItems = useCallback(async () => {
+  // El React Compiler estabiliza esta función automáticamente (antes: useCallback).
+  async function fetchItems() {
     setIsLoading(true)
     setError(null)
     try {
@@ -37,7 +38,7 @@ export function VanillaExample(): ReactElement {
     } finally {
       setIsLoading(false)
     }
-  }, [])
+  }
 
   async function handleCreate(name: string) {
     setCreating(true)
@@ -58,7 +59,7 @@ export function VanillaExample(): ReactElement {
   // Es el punto de la demo: contrasta con HelloWorld, donde React Query lo hace solo.
   useEffect(() => {
     void fetchItems()
-  }, [fetchItems])
+  }, [])
 
   // -----------------------RENDER
   return (

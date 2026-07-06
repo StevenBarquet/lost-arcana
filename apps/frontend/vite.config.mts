@@ -1,10 +1,20 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import react, { reactCompilerPreset } from '@vitejs/plugin-react';
+import babel from '@rolldown/plugin-babel';
 import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    // @vitejs/plugin-react v6 transpila con oxc (Vite 8/Rolldown), NO con Babel.
+    react(),
+    // React Compiler (v1.0): memoiza automáticamente componentes y hooks en build,
+    // estabilizando funciones/objetos → useCallback/useMemo manuales dejan de ser
+    // necesarios. Hoy solo existe como plugin de Babel, así que corre en una pasada
+    // de Babel encima de oxc (patrón oficial de plugin-react v6). El linter que lo
+    // acompaña ya vive en eslint-plugin-react-hooks v7 (ver eslint.config.mjs).
+    babel({ presets: [reactCompilerPreset()] }),
+  ],
 
   resolve: {
     // Vite resuelve los `paths` del tsconfig de forma nativa (antes vite-tsconfig-paths).

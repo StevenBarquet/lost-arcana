@@ -1,8 +1,8 @@
-export const commitID = `319e399f6c2a9c3e5d8e480d8f9ecb4fa317214e`;
+export const commitID = `97c4f05df475740faa7cd77dbb0d59297ac845f9`;
     
-  export const commitMssg = `fix de convenciones en FE`;
+  export const commitMssg = `FE optimizado con babel para no necesitar memotización`;
   
-  export const commitDate = `Mon Jul 06 2026 11:42:31 GMT-0600 (Central Standard Time)`;
+  export const commitDate = `Mon Jul 06 2026 12:40:39 GMT-0600 (Central Standard Time)`;
   
   export const commitAuthor = `Steven Barquet`;
   

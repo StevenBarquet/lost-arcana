@@ -24,11 +24,12 @@
 2. [Estructura](#-estructura)
 3. [Uso rápido](#-uso-rápido)
 4. [tRPC (cliente)](#-trpc-cliente)
-5. [Convenciones](#-convenciones)
-6. [Generadores (plop)](#-generadores-plop)
-7. [Paths absolutos y estilos](#-paths-absolutos-y-estilos)
-8. [Scripts](#-scripts)
-9. [Pendientes conocidos](#-pendientes-conocidos)
+5. [React Compiler](#-react-compiler)
+6. [Convenciones](#-convenciones)
+7. [Generadores (plop)](#-generadores-plop)
+8. [Paths absolutos y estilos](#-paths-absolutos-y-estilos)
+9. [Scripts](#-scripts)
+10. [Pendientes conocidos](#-pendientes-conocidos)
 
 ---
 
@@ -37,6 +38,7 @@
 | Pieza             | Detalle                                                             |
 | ----------------- | ------------------------------------------------------------------- |
 | ⚡ Build           | **Vite 8** + `@vitejs/plugin-react` + PostCSS (autoprefixer, cssnano, preset-env) |
+| 🧠 Optimización   | **React Compiler 1.0** — auto-memoización en build (adiós `useCallback`/`useMemo`) |
 | 🎨 UI             | **Ant Design 6** (ConfigProvider en modo dark vía `AntdProv`)       |
 | 🌓 Tema light     | `AntdProv/AntdProvLight.tsx` — variante ligera lista por si se necesita montar una sección con Ant Design en modo light (no se usa por defecto) |
 | 🔗 Datos          | **tRPC 11 + TanStack React Query 5** type-safe (cliente en `providers/TrpcProv`) |
@@ -157,6 +159,42 @@ const nuevo = await vanillaTRPC.items.create.mutate({ name: 'nuevo' });
 > día necesitas baja latencia / bidireccional, se migra a **WebSocket** por el lado del
 > cliente cambiando el link a `wsLink` (el uso en componentes no cambia). Ver el README
 > del backend para el detalle.
+
+---
+
+## 🧠 React Compiler
+
+El **React Compiler 1.0** corre en cada build y memoiza componentes y hooks
+automáticamente, estabilizando funciones y objetos. **Consecuencia práctica: no
+escribas `useCallback` ni `useMemo`** — son redundantes (regla en `claude.md`).
+
+Para optimizar, el compiler exige que el código siga las **Rules of React** (pureza,
+no mutar props/state). Eso lo vigila `eslint-plugin-react-hooks` v7 (reglas
+`react-hooks/*`, ya activas en `eslint.config.mjs` de la raíz): son errores de build,
+no sugerencias.
+
+### Setup (no tocar salvo upgrade)
+
+`@vitejs/plugin-react` v6 transpila con **oxc** (Vite 8 / Rolldown), NO con Babel. El
+compiler hoy solo existe como plugin de Babel, así que corre en una pasada aparte:
+
+```ts
+// vite.config.mts
+import react, { reactCompilerPreset } from '@vitejs/plugin-react';
+import babel from '@rolldown/plugin-babel';
+
+plugins: [
+  react(), // oxc: transpila TSX→JS (rápido)
+  babel({ presets: [reactCompilerPreset()] }), // solo la pasada del compiler
+];
+```
+
+Peer deps que esto requiere (dev): `@rolldown/plugin-babel`, `@babel/core`,
+`babel-plugin-react-compiler`, `@types/babel__core`.
+
+> **Verificar que compila**: tras `npm run build`, el bundle debe contener llamadas a
+> `_c(` (el cache de memoización que inyecta el compiler). Si no aparecen, no está
+> corriendo.
 
 ---
 

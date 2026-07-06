@@ -1,9 +1,4 @@
-import {
-  type Dispatch,
-  type SetStateAction,
-  useCallback,
-  useState,
-} from 'react'
+import { type Dispatch, type SetStateAction, useState } from 'react'
 
 export interface ReturnUseBoolean {
   value: boolean
@@ -26,9 +21,10 @@ export interface ReturnUseBoolean {
 export function useBoolean(defaultValue?: boolean): ReturnUseBoolean {
   const [value, setValue] = useState(!!defaultValue)
 
-  const setTrue = useCallback(() => setValue(true), [])
-  const setFalse = useCallback(() => setValue(false), [])
-  const toggle = useCallback(() => setValue((x) => !x), [])
+  // El React Compiler estabiliza estas funciones automáticamente (antes: useCallback).
+  const setTrue = () => setValue(true)
+  const setFalse = () => setValue(false)
+  const toggle = () => setValue((x) => !x)
 
   return {
     value,

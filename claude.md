@@ -435,6 +435,11 @@ export function MyFormComponent(): ReactElement {
 - If you think you need `useEffect`, first consider: Zustand, context, computed values, or restructuring the data flow
 - Acceptable uses: third-party library integration that requires imperative setup, browser APIs with no React binding, or initial data fetching on mount
 
+## Memoización
+
+- **NO uses `useCallback` ni `useMemo`.** El React Compiler (activo en el build) los
+  hace redundantes: escribe funciones y valores normales. Setup en el README del FE.
+
 ---
 
 # BACKEND ONLY
