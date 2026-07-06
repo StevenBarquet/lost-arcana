@@ -179,10 +179,75 @@ useSubscription(trpc.notifications.onNotification.subscriptionOptions(undefined,
 
 > Pendiente de integrar: **Formik + Zod** (`zod-formik-adapter`) para formularios.
 
+### API calls — hooks en `src/api-calls/`
+
+**Nunca llames a tRPC directamente desde un componente.** Toda llamada al backend
+(query, mutation o subscription) se encapsula en un **custom hook** bajo
+`src/api-calls/`, agrupado en una carpeta **por router** del backend. Un archivo
+por call. El componente solo consume el hook — no conoce tRPC, cache ni invalidación.
+
+```
+src/api-calls/
+├── items/                    # router `items`
+│   ├── useItemsList.ts       # query    items.list
+│   └── useCreateItem.ts      # mutation  items.create
+└── notifications/            # router `notifications`
+    ├── useOnNotification.ts  # subscription (SSE)
+    └── usePingNotification.ts# mutation
+```
+
+**Naming: verbo + entidad**, que describa la acción, no el mecanismo tRPC.
+`useItemsList`, `useCreateItem`, `useOnNotification` — NO `useQueryItems` ni
+`useCreateItemMutate`. La carpeta ya dice a qué router pertenece.
+
+**Los hooks son opinados** — centralizan la política del template para que el
+componente quede limpio:
+
+- **Retorno con nombres de dominio.** Aplana el objeto de React Query y renómbralo:
+  `{ items, isLoading, error }`, `{ createItem, isCreating }`. No devuelvas el
+  objeto crudo de RQ ni `mutate`/`isPending` sin renombrar.
+- **Mutations: `onError` → `swalApiError`** (manejo de error consistente en toda
+  la app) y, cuando aplique, **`onSuccess` invalida las queries afectadas** con
+  `queryClient.invalidateQueries(trpc.<router>.<proc>.queryFilter())`. Acepta un
+  `options?: { onSuccess?: () => void }` para efectos extra del componente
+  (cerrar modal, navegar, etc.).
+- **Queries: NO usan `onError`.** TanStack Query v5 lo eliminó de `useQuery`; el
+  error se **retorna** (`error: query.error?.message ?? null`) y lo pinta quien
+  consume. Swal solo en mutations.
+- **Tipos de dominio.** El tipo de la entidad (`Item`) se infiere del router
+  (`inferRouterOutputs<AppRouter>['items']['list'][number]`) y vive en su hook de
+  `api-calls`; los componentes lo importan de ahí (única fuente de verdad, sin
+  duplicar).
+
+```ts
+// api-calls/items/useCreateItem.ts — patrón mutation opinada
+export function useCreateItem(options?: { onSuccess?: () => void }) {
+  const trpc = useTRPC()
+  const queryClient = useQueryClient()
+  const mutation = useMutation(
+    trpc.items.create.mutationOptions({
+      onError: (error) => swalApiError(error.message),
+      onSuccess: () => {
+        queryClient.invalidateQueries(trpc.items.list.queryFilter())
+        options?.onSuccess?.()
+      },
+    }),
+  )
+  return { createItem: mutation.mutate, isCreating: mutation.isPending }
+}
+```
+
+> **Cliente vanilla:** para código fuera de React (utils/services/stores) usa
+> `vanillaTRPC` directamente (promesas), no un hook de `api-calls`. Los hooks son
+> solo para componentes.
+
 ## Project Structure
 
 ```
 apps/frontend/src/
+├── api-calls/          # Hooks que envuelven llamadas al BE, una carpeta por router
+│   ├── items/          # useItemsList, useCreateItem
+│   └── notifications/  # useOnNotification, usePingNotification
 ├── pages/              # Route pages (one folder per page, flat by default)
 │   ├── Home/           # Landing/home page
 │   │   └── HomeCont/   # Page container component

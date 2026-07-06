@@ -1,11 +1,11 @@
 // ---Dependencies
 import type { ReactElement } from 'react'
-import type { inferRouterOutputs } from '@trpc/server'
 // ---Config/Utils
-import type { AppRouter } from 'backend/src/trpc/app.router'
+import type { Item } from 'src/api-calls/items/useItemsList'
 
-/** Tipo de un item, inferido de la salida del router tRPC (única fuente de verdad). */
-export type Item = inferRouterOutputs<AppRouter>['items']['list'][number]
+// El tipo de dominio vive en la capa de datos (`api-calls/items`); se re-exporta
+// aquí por conveniencia para quien ya importaba `Item` de este componente.
+export type { Item }
 
 interface Props {
   items?: Item[]
