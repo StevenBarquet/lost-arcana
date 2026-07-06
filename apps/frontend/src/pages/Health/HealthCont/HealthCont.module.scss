@@ -1,0 +1,102 @@
+@use '/src/styles/variables' as *;
+@use '/src/styles/animations' as *;
+@use '/src/styles/utils' as *;
+
+.HealthCont {
+  @include darkBackgroundGradient();
+  min-height: 100vh;
+  color: white;
+  font-family: 'Inter';
+
+  .centerContainer {
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    padding: 18px;
+  }
+
+  header {
+    margin-bottom: 2rem;
+    h2 {
+      font-size: 32px;
+      font-weight: 600;
+    }
+    h2 span {
+      color: $primaryColor4;
+    }
+    p {
+      color: $colorDark6;
+      margin-top: 4px;
+    }
+  }
+
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: $colorSuccess;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background-color: rgba(112, 186, 89, 0.12);
+    margin-bottom: 12px;
+  }
+
+  .status::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: $colorSuccess;
+    animation: flashing 1.6s infinite linear;
+  }
+
+  .card {
+    @include cardsBackground();
+    border-radius: 0.5rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .row:last-child {
+    border-bottom: none;
+  }
+
+  dt {
+    color: $colorDark6;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  dd {
+    font-family: monospace;
+    font-size: 14px;
+    text-align: right;
+    word-break: break-all;
+  }
+
+  a {
+    color: $primaryColor4;
+    font-weight: 500;
+  }
+}
+
+// // desk mob xs sm md lg xl xxl
+// @include onlyIn(lg) {
+//   background-color: #f28181;
+// }

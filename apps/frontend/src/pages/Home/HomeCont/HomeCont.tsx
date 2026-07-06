@@ -1,6 +1,6 @@
 // ---Dependencys
 import { ReactElement } from 'react'
-import * as commitInfo from 'shared/appVersion'
+import { Link } from 'react-router-dom'
 import style from './HomeCont.module.scss'
 // ---Components
 import { HelloWorld } from './HelloWorld/HelloWorld'
@@ -30,7 +30,7 @@ export function HomeCont(): ReactElement {
           <h3>tRPC · cliente vanilla</h3>
           <VanillaExample />
         </div>
-        <pre>{JSON.stringify(commitInfo, null, 2)}</pre>
+        <Link to="/health">Ver health check →</Link>
       </div>
     </div>
   )
