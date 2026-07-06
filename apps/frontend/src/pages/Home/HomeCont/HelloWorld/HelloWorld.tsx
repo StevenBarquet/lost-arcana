@@ -1,6 +1,7 @@
 // ---Dependencies
 import { ReactElement, useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useSubscription } from '@trpc/tanstack-react-query';
 // ---UI Dependencies
 import { Button, Input, Space } from 'antd';
 // ---Config/Utils
@@ -28,6 +29,20 @@ export function HelloWorld(): ReactElement {
       },
     }),
   );
+
+  // Subscription por SSE: acumula las notificaciones que empuja el servidor.
+  const [notifications, setNotifications] = useState<string[]>([]);
+  useSubscription(
+    trpc.notifications.onNotification.subscriptionOptions(undefined, {
+      onData: ({ data }) => {
+        setNotifications((prev) => [
+          `${data.message} · ${data.timestamp.toLocaleTimeString()}`,
+          ...prev,
+        ]);
+      },
+    }),
+  );
+  const ping = useMutation(trpc.notifications.ping.mutationOptions());
 
   // -----------------------MAIN METHODS
   function handleCreate() {
@@ -69,6 +84,18 @@ export function HelloWorld(): ReactElement {
           Crear
         </Button>
       </Space.Compact>
+
+      <p style={{ marginTop: 12 }}>tRPC · subscription (SSE):</p>
+      <Button onClick={() => ping.mutate(undefined)} loading={ping.isPending}>
+        Enviar notificación
+      </Button>
+      {notifications.length > 0 && (
+        <ul>
+          {notifications.map((n, i) => (
+            <li key={i}>{n}</li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

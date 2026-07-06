@@ -1,5 +1,6 @@
 import { router } from "./trpc";
 import { itemsRouter } from "./routers/items.router";
+import { notificationsRouter } from "./routers/notifications.router";
 
 /**
  * Router raíz de la API tRPC. Agrupa todos los sub-routers bajo el namespace
@@ -7,6 +8,7 @@ import { itemsRouter } from "./routers/items.router";
  */
 export const appRouter = router({
   items: itemsRouter,
+  notifications: notificationsRouter,
 });
 
 /**

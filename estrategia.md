@@ -8,7 +8,7 @@
 
 ## ESTADO ACTUAL
 
-**Avance global: ~50%** · Fase activa: **Fase 4 (Backend tRPC)** — en arranque. **Frontend concluido ✅**
+**Avance global: ~75%** · Fase activa: **Fase 5 (`apps/shared`)** — siguiente. **Frontend + Backend tRPC concluidos ✅**
 
 > **Desvío (jul 2026):** antes de tRPC se construyó una variante **Express v5 REST**
 > agnóstica, ligera, con arquitectura + docs sólidas (READMEs + claude.md), deps al
@@ -43,10 +43,10 @@
 | 1 · Infra raíz (npm + Node 26) | ✅ Cubierta (scripts migrados a npm, `engines` en Node 26, `npm i` corre) |
 | 2 · Frontend que levante | ✅ **Concluida** — levanta y buildea limpio; deps de build actualizadas y verificadas |
 | 3 · Generadores FE | ✅ **Concluida** — probados end-to-end; plantillas adaptadas a Sass moderno |
-| 4 · Backend tRPC + Express | ⬜ Pendiente (lo más grande) |
-| 5 · `apps/shared` | ⬜ Pendiente |
+| 4 · Backend tRPC + Express | ✅ **Concluida** — tRPC 11.18 en `/trpc`, superjson, items (query+mutation), subscription SSE; validado dev+prod, BE+FE |
+| 5 · `apps/shared` | ⬜ Pendiente (workspace ya existe; falta poblar tipos/schemas) |
 | 6 · Generadores BE (→ tRPC) | ⬜ Pendiente |
-| 7 · Docs y limpieza | ⬜ Pendiente |
+| 7 · Docs y limpieza | 🟡 Parcial — READMEs BE/FE y claude.md ya cubren tRPC. Pendiente: limpiar branding/envs Vivir Tekk (`DB_URL`, `FRONTEND_URL`) y borrar este archivo |
 
 **Notas resumidas:**
 - El FE se armó limpiando un proyecto real ("Vivir Tekk"): de **431 → ~60 archivos**.

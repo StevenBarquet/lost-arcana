@@ -7,7 +7,7 @@
 > **Monorepo.** Este repo usa **npm workspaces** sobre **Node 26** y organiza el
 > código en `apps/`:
 > - `apps/frontend` — Vite + React (SPA client-side).
-> - `apps/backend` — Express REST API + WebSocket.
+> - `apps/backend` — tRPC API sobre Express (+ REST de ejemplo).
 > - `apps/shared` — código compartido entre BE y FE (workspace `@app/shared`).
 >
 > Las reglas están divididas en tres secciones. **Lee la que corresponde a lo que
@@ -34,7 +34,7 @@ Reglas transversales a todo el monorepo.
 monorepo/
 ├── apps/
 │   ├── frontend/       # Vite + React SPA
-│   ├── backend/        # Express REST API + WebSocket
+│   ├── backend/        # tRPC API sobre Express (+ REST de ejemplo)
 │   └── shared/         # @app/shared — tipos, utils, schemas compartidos
 ├── generators/         # Plantillas plop (scaffolding FE y BE)
 ├── scripts/            # Scripts de infra (git hooks, versionado por commit)
@@ -134,15 +134,37 @@ Aplica exclusivamente a `apps/frontend`.
 
 - Vite + React 19 (full client-side SPA, no SSR)
 - Ant Design (ConfigProvider for dark theming)
+- **tRPC 11 + TanStack React Query 5** — type-safe data layer (client in `providers/TrpcProv`)
+- **superjson** transformer (must match the backend)
 - Zustand (with devtools + persist middleware) for client state
 - SCSS Modules for styling
 - react-router-dom for routing
 - react-forge-grid (Frow, Fcol) for layouts
 - TypeScript strict
 
-> Pendiente de integrar (Fase 4): cliente **tRPC + @tanstack/react-query** para
-> el data-fetching type-safe contra el backend, y **Formik + Zod**
-> (`zod-formik-adapter`) para formularios.
+### tRPC client
+
+Uses the **new TanStack React Query integration** (`@trpc/tanstack-react-query`), NOT the
+classic `createTRPCReact`. Setup in `providers/TrpcProv/`:
+
+- `trpc.ts` → `createTRPCContext<AppRouter>()` exports `{ TRPCProvider, useTRPC }`. The
+  `AppRouter` type is imported **type-only** from `backend/src/trpc/app.router` (alias
+  `backend/*`), so it's erased from the bundle.
+- `TrpcProv.tsx` → `QueryClient` + tRPC client with `splitLink`: subscriptions →
+  `httpSubscriptionLink` (SSE), everything else → `httpBatchLink`. superjson on both.
+
+Usage in components — always via `useTRPC()` + the `*Options` helpers:
+
+```ts
+const trpc = useTRPC();
+const items  = useQuery(trpc.items.list.queryOptions());
+const create = useMutation(trpc.items.create.mutationOptions());
+useSubscription(trpc.notifications.onNotification.subscriptionOptions(undefined, {
+  onData: ({ data }) => { /* data is fully typed; Date stays a Date */ },
+}));
+```
+
+> Pendiente de integrar: **Formik + Zod** (`zod-formik-adapter`) para formularios.
 
 ## Project Structure
 
@@ -394,8 +416,11 @@ Aplica exclusivamente a `apps/backend`.
 
 ## Stack
 
-- Express 5 (REST API)
-- WebSocket (`ws` package) integrado en el mismo servidor HTTP
+- **tRPC 11** — capa de datos principal, montada sobre Express en `/trpc`
+- **superjson** como transformer (Date/Map/Set/BigInt end-to-end)
+- **zod 4** para validación de inputs de procedures
+- Express 5 — servidor HTTP + una REST API de ejemplo en `/api/v1` (coexiste)
+- Realtime por **SSE** (subscriptions tRPC con async generators; **no WebSocket**)
 - TypeScript strict
 - **Dev:** `tsx` como runtime + Node `--watch` nativo para hot reload (no nodemon)
 - **Producción:** transpilación a JS (`tsc` → `dist/`), se ejecuta Node puro
@@ -407,15 +432,21 @@ Aplica exclusivamente a `apps/backend`.
 
 ```
 apps/backend/src/
-├── index.ts                # Entrypoint: starts HTTP + WS server
+├── index.ts                # Entrypoint: starts HTTP server
+├── trpc/                   # tRPC (capa de datos principal)
+│   ├── trpc.ts             # initTRPC: router, publicProcedure (superjson + errorFormatter)
+│   ├── context.ts          # createContext per-request (auth/db/services later)
+│   ├── app.router.ts       # Root router + export type AppRouter (consumed by FE)
+│   └── routers/
+│       ├── items.router.ts        # Example: query + mutation (zod input)
+│       └── notifications.router.ts # Example: subscription over SSE (async generator)
 ├── app/
-│   ├── express-app.ts      # Express setup (middlewares + route mounting)
-│   ├── ws.ts               # WebSocket server setup
-│   └── route-logger.ts     # Prints registered routes on boot
-├── api/
-│   └── index.ts            # Route registry (single source of truth)
-│       ├── items/          # Example: folder-per-endpoint
-│       └── ws-triggers/    # Example: endpoint that broadcasts to WS clients
+│   ├── express-app.ts      # Express setup: mounts /trpc and /api/v1
+│   └── route-logger.ts     # Prints registered REST routes on boot
+├── api/v1/
+│   ├── index.ts            # REST route registry (single source of truth)
+│   ├── health/             # Example REST endpoint
+│   └── items/              # Example REST endpoint (mirror of the tRPC items router)
 ├── configs/
 │   ├── constants.ts        # App-wide constants
 │   ├── logger.ts           # debug-based logger (app:prod, app:warn, app:error, app:Debug)
@@ -434,12 +465,16 @@ apps/backend/src/
 └── 3rd-party/              # Reserved: SDK integrations, external service wrappers
 ```
 
-## Routing & Endpoints
+## REST API (example, coexists with tRPC)
+
+> The REST layer under `/api/v1` is kept as an **example** of the REST paradigm and for
+> non-tRPC consumers (healthchecks, webhooks). New data endpoints should generally be
+> **tRPC procedures** (see above), not REST routes.
 
 ### Folder-per-endpoint
 
 Each endpoint (or group of related sub-routes) lives in its own folder under
-`api/`. The folder represents an entity, feature, or logical grouping.
+`api/v1/`. The folder represents an entity, feature, or logical grouping.
 
 ```
 api/
@@ -480,14 +515,45 @@ const routes = [
 This template does not use `/api/v1/` style versioning. Routes mount directly
 under `/api/`. Versioning can be added per-project if needed.
 
-## WebSocket
+## tRPC (primary data layer)
 
-- WS is mounted on the same HTTP server via the `upgrade` event.
-- Current implementation is **unidirectional (server → client)** for
-  notifications/broadcasts. Bidirectional (client → server messages) is
-  pending — to be added as a simple template when needed.
-- **HTTP trigger → WS broadcast** is the established pattern: an HTTP endpoint
-  can broadcast messages to all connected WS clients.
+tRPC is the main API. It lives in `src/trpc/` and is mounted on Express at `/trpc`
+via `createExpressMiddleware`. The REST API under `/api/v1` is kept only as an example
+of the REST paradigm (see below).
+
+- **One instance per backend** in `trpc.ts`: `initTRPC.context<Context>().create({...})`
+  with `transformer: superjson` and an `errorFormatter` that surfaces `zodError` in
+  `error.data`. Export `router` and `publicProcedure` from here — never call `initTRPC`
+  again elsewhere.
+- **Context** (`context.ts`) is typed as `Awaited<ReturnType<typeof createContext>>`.
+  This is where per-request stuff (authed user, db client, services) gets injected. A
+  `protectedProcedure` (auth middleware) would be added here when needed.
+- **Adding a procedure:** create/edit a `*.router.ts` in `trpc/routers/` using
+  `publicProcedure.input(zodSchema).query|mutation|subscription(...)`, then register it
+  in `app.router.ts`. The `AppRouter` type updates automatically.
+- **`AppRouter` type** (`app.router.ts`) is the contract: the frontend imports it
+  **type-only** (alias `backend/*`) for end-to-end type safety. No codegen, no client
+  generation. Keep `export type AppRouter = typeof appRouter` in sync.
+- **Inputs** are validated with **zod**. Always `.input(z.object({...}))` — don't read
+  raw args untyped.
+- **superjson** is the transformer on both ends: return real `Date`/`Map`/`Set`/`BigInt`
+  from procedures; they arrive typed on the FE. The client transformer must match.
+
+### Realtime — subscriptions over SSE
+
+Realtime uses **tRPC subscriptions served over SSE** (plain HTTP). **No WebSocket.**
+
+- Subscriptions are **async generators**: `subscription(async function* (opts) { ... yield ... })`.
+- Use Node's `on(emitter, event, { signal: opts.signal })` so the generator ends when
+  the client disconnects.
+- Wrap yields in `tracked(id, data)` so the browser can resume with `lastEventId` after
+  a reconnect.
+- The emitter is **in-memory** (single process). For multi-instance, put a Redis (or
+  similar) pub/sub behind it.
+- **SSE vs WebSocket:** SSE is the default (simple realtime, auto-reconnect, no extra
+  infra). For low-latency/bidirectional needs, migrate to WebSocket — tRPC ships the
+  infra (`wsLink` + `applyWSSHandler`) and **procedure/hook code stays identical** after
+  wiring. For **raw** (non-tRPC) WebSockets, see the sibling Express template.
 
 ## Environment System
 

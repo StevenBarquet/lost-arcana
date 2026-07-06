@@ -1,14 +1,15 @@
 # 🎨 Frontend — Vite + React 19
 
 > SPA sobre **Vite 8 + React 19 + TypeScript**, con Ant Design, Zustand,
-> SCSS Modules y react-router. Estructura y convenciones listas, con generadores
-> plop para no escribir boilerplate.
+> cliente **tRPC + TanStack React Query**, SCSS Modules y react-router. Estructura y
+> convenciones listas, con generadores plop para no escribir boilerplate.
 
 <p align="left">
   <img alt="Vite" src="https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white">
   <img alt="React" src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black">
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-6.0-3178C6?logo=typescript&logoColor=white">
   <img alt="Ant Design" src="https://img.shields.io/badge/Ant%20Design-6-0170FE?logo=antdesign&logoColor=white">
+  <img alt="tRPC" src="https://img.shields.io/badge/tRPC-11-2596BE?logo=trpc&logoColor=white">
   <img alt="Zustand" src="https://img.shields.io/badge/Zustand-5-000000">
 </p>
 
@@ -22,11 +23,12 @@
 1. [Qué incluye](#-qué-incluye)
 2. [Estructura](#-estructura)
 3. [Uso rápido](#-uso-rápido)
-4. [Convenciones](#-convenciones)
-5. [Generadores (plop)](#-generadores-plop)
-6. [Paths absolutos y estilos](#-paths-absolutos-y-estilos)
-7. [Scripts](#-scripts)
-8. [Pendientes conocidos](#-pendientes-conocidos)
+4. [tRPC (cliente)](#-trpc-cliente)
+5. [Convenciones](#-convenciones)
+6. [Generadores (plop)](#-generadores-plop)
+7. [Paths absolutos y estilos](#-paths-absolutos-y-estilos)
+8. [Scripts](#-scripts)
+9. [Pendientes conocidos](#-pendientes-conocidos)
 
 ---
 
@@ -36,6 +38,7 @@
 | ----------------- | ------------------------------------------------------------------- |
 | ⚡ Build           | **Vite 8** + `@vitejs/plugin-react` + PostCSS (autoprefixer, cssnano, preset-env) |
 | 🎨 UI             | **Ant Design 6** (ConfigProvider en modo dark vía `AntdProv`)       |
+| 🔗 Datos          | **tRPC 11 + TanStack React Query 5** type-safe (cliente en `providers/TrpcProv`) |
 | 🗃️ Estado         | **Zustand 5** (con `devtools` + `persist`)                          |
 | 🧭 Ruteo          | **react-router** con rutas centralizadas en `Router/AppRoutes.tsx`  |
 | 💅 Estilos        | **SCSS moderno** (`@use`/`color.mix`/`map.get`) + SCSS Modules      |
@@ -51,7 +54,8 @@ src/
   App.tsx                 # Compone GlobalProviders + Router
   appConfig/              # Config de la app (helmet, metadata, etc.)
   providers/
-    GlobalProviders.tsx   # Agrupa router + theming (aquí irá tRPC/react-query)
+    GlobalProviders.tsx   # Agrupa router + tRPC/react-query + theming
+    TrpcProv/             # Cliente tRPC + QueryClient (trpc.ts + TrpcProv.tsx)
     AntdProv/             # ConfigProvider de Ant Design (tema dark)
     ScrollToTop/          # Scroll al top en cada navegación
   Router/
@@ -81,6 +85,55 @@ npm run front        # dev server de Vite
 # O desde apps/frontend
 npm run dev
 ```
+
+> Requiere el backend corriendo (`npm run back`). La URL se toma de
+> `VITE_BACKEND_URL` (ver `.env.development`), a la que se le añade `/trpc`.
+
+---
+
+## 🔗 tRPC (cliente)
+
+El FE consume el backend con **tRPC 11 + la integración nueva de TanStack React Query**
+(`@trpc/tanstack-react-query`), no el `createTRPCReact` clásico. Todo vive en
+`providers/TrpcProv/`:
+
+- **`trpc.ts`** — crea el contexto tipado importando el tipo `AppRouter` del backend
+  como **type-only** (alias `backend/*`; se borra en el build, no pesa en el bundle):
+  ```ts
+  import type { AppRouter } from 'backend/src/trpc/app.router';
+  export const { TRPCProvider, useTRPC } = createTRPCContext<AppRouter>();
+  ```
+- **`TrpcProv.tsx`** — monta `QueryClient` + cliente tRPC con `splitLink`: las
+  **subscriptions** van por `httpSubscriptionLink` (SSE) y el resto por `httpBatchLink`.
+  `superjson` como transformer (debe coincidir con el backend).
+
+### Uso en componentes
+
+```ts
+const trpc = useTRPC();
+
+// Query
+const items = useQuery(trpc.items.list.queryOptions());
+
+// Mutation
+const create = useMutation(trpc.items.create.mutationOptions());
+create.mutate({ name: 'nuevo' });
+
+// Subscription (SSE) — realtime
+useSubscription(
+  trpc.notifications.onNotification.subscriptionOptions(undefined, {
+    onData: ({ data }) => console.log(data.message),
+  }),
+);
+```
+
+Gracias a `superjson`, los `Date` llegan como `Date` (`item.createdAt.toLocaleDateString()`
+funciona sin parsear). Ejemplo end-to-end en `pages/Home/.../HelloWorld.tsx`.
+
+> **Realtime**: se usa **SSE** (HTTP, reconexión automática) por simplicidad. Si algún
+> día necesitas baja latencia / bidireccional, se migra a **WebSocket** por el lado del
+> cliente cambiando el link a `wsLink` (el uso en componentes no cambia). Ver el README
+> del backend para el detalle.
 
 ---
 
@@ -150,8 +203,8 @@ la variante con agrupación por si se necesita más adelante.
 
 ## ⚠️ Pendientes conocidos
 
-- [ ] **Cliente tRPC + React Query.** `GlobalProviders.tsx` está listo para recibir
-      el provider cuando se conecte el backend; aún no está instalado.
+- [ ] **Hooks tRPC generados.** Los generadores plop de hooks aún no crean hooks tRPC;
+      por ahora se usa `useTRPC()` directo en el componente (ver sección tRPC).
 - [ ] **Generador de formularios (`generate-form`).** Sigue adaptado al stack anterior
       (`zod-formik-adapter`) y las deps de forms (`formik`, `zod`, `zod-formik-adapter`)
       **no** están instaladas. Se adaptará al agregar el stack de formularios.
