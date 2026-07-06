@@ -3,30 +3,31 @@ import { ReactElement, useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useSubscription } from '@trpc/tanstack-react-query';
 // ---UI Dependencies
-import { Button, Input, Space } from 'antd';
+import { Button } from 'antd';
+// ---Components
+import { ItemsList } from '../ItemsList/ItemsList';
+import { CreateItemForm } from '../CreateItemForm/CreateItemForm';
 // ---Config/Utils
 import { FRONTEND_ENVS } from 'src/utils/constants/frontend-envs';
 import { useTRPC } from 'src/providers/TrpcProv/trpc';
 
 /**
- * HelloWorld Component: ejemplo end-to-end de tRPC (patrón TanStack React Query).
+ * HelloWorld Component: ejemplo end-to-end de tRPC con el patrón **TanStack React
+ * Query** (hooks: cache + refetch + estados automáticos).
  * - `items.list` como query.
- * - `items.create` como mutation (invalida la query al terminar).
- * Sirve para verificar que el type-safety FE↔BE funciona en vivo.
+ * - `items.create` como mutation (refetch de la lista al terminar).
+ * - `notifications` como subscription por SSE (tiempo real).
+ * Ver `VanillaExample` para el mismo CRUD con el cliente vanilla (promesas).
  * @returns {ReactElement} ReactElement
  */
 export function HelloWorld(): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
   const trpc = useTRPC();
-  const [name, setName] = useState('');
 
   const itemsQuery = useQuery(trpc.items.list.queryOptions());
   const createItem = useMutation(
     trpc.items.create.mutationOptions({
-      onSuccess: () => {
-        setName('');
-        itemsQuery.refetch();
-      },
+      onSuccess: () => itemsQuery.refetch(),
     }),
   );
 
@@ -44,46 +45,25 @@ export function HelloWorld(): ReactElement {
   );
   const ping = useMutation(trpc.notifications.ping.mutationOptions());
 
-  // -----------------------MAIN METHODS
-  function handleCreate() {
-    if (name.trim()) createItem.mutate({ name });
-  }
-
   // -----------------------RENDER
   return (
-    <div>
+    <div className="HelloWorld">
       <p>
         Entorno actual: <span>{FRONTEND_ENVS.MODE}</span>
       </p>
 
-      <p>tRPC · items.list:</p>
-      {itemsQuery.isLoading && <p>Cargando…</p>}
-      {itemsQuery.error && <p>Error: {itemsQuery.error.message}</p>}
-      {itemsQuery.data && (
-        <ul>
-          {itemsQuery.data.map((item) => (
-            <li key={item.id}>
-              {item.name} — {item.createdAt.toLocaleDateString()}
-            </li>
-          ))}
-        </ul>
-      )}
-
-      <Space.Compact style={{ width: '100%', marginTop: 12 }}>
-        <Input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Nombre del nuevo item"
-          onPressEnter={handleCreate}
-        />
-        <Button
-          type="primary"
-          onClick={handleCreate}
+      <p>tRPC · items (React Query):</p>
+      <ItemsList
+        items={itemsQuery.data}
+        isLoading={itemsQuery.isLoading}
+        error={itemsQuery.error?.message ?? null}
+      />
+      <div style={{ marginTop: 12 }}>
+        <CreateItemForm
+          onCreate={(name) => createItem.mutate({ name })}
           loading={createItem.isPending}
-        >
-          Crear
-        </Button>
-      </Space.Compact>
+        />
+      </div>
 
       <p style={{ marginTop: 12 }}>tRPC · subscription (SSE):</p>
       <Button onClick={() => ping.mutate(undefined)} loading={ping.isPending}>

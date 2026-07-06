@@ -106,6 +106,9 @@ El FE consume el backend con **tRPC 11 + la integración nueva de TanStack React
 - **`TrpcProv.tsx`** — monta `QueryClient` + cliente tRPC con `splitLink`: las
   **subscriptions** van por `httpSubscriptionLink` (SSE) y el resto por `httpBatchLink`.
   `superjson` como transformer (debe coincidir con el backend).
+- **`trpc-vanilla-client.ts`** — cliente tRPC **sin** React Query, para consumir como
+  promesas (`await vanillaTRPC.items.list.query()`), estilo axios. Útil fuera de React
+  (utils, servicios, stores) o cuando prefieres manejar carga/errores a mano.
 
 ### Uso en componentes
 
@@ -128,7 +131,26 @@ useSubscription(
 ```
 
 Gracias a `superjson`, los `Date` llegan como `Date` (`item.createdAt.toLocaleDateString()`
-funciona sin parsear). Ejemplo end-to-end en `pages/Home/.../HelloWorld.tsx`.
+funciona sin parsear).
+
+### Dos ejemplos end-to-end (mismo CRUD, distinto mecanismo)
+
+En `pages/Home/HomeCont/` hay dos secciones que consumen los **mismos routers** y
+**reutilizan** la misma UI (`ItemsList`, `CreateItemForm`), para comparar patrones:
+
+- **`HelloWorld/`** — patrón con **hooks + React Query** (cache, refetch y estados
+  automáticos), más la subscription SSE.
+- **`VanillaExample/`** — patrón con el **cliente vanilla** (promesas): fetch inicial en
+  `useEffect`, y refetch manual cuando la mutación de crear resuelve sin error.
+
+### Cliente vanilla (promesas)
+
+```ts
+import { vanillaTRPC } from 'src/providers/TrpcProv/trpc-vanilla-client';
+
+const items = await vanillaTRPC.items.list.query();
+const nuevo = await vanillaTRPC.items.create.mutate({ name: 'nuevo' });
+```
 
 > **Realtime**: se usa **SSE** (HTTP, reconexión automática) por simplicidad. Si algún
 > día necesitas baja latencia / bidireccional, se migra a **WebSocket** por el lado del

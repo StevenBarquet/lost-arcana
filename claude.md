@@ -76,6 +76,16 @@ monorepo/
 - Si un generador produce algo desactualizado respecto a estas reglas, **arregla
   la plantilla** (`generators/`), no solo el archivo generado.
 
+> **Hook de convenciones.** Existe un hook `PreToolUse` (ver
+> [`.claude/settings.json`](.claude/settings.json) →
+> [`.claude/hooks/conventions-reminder.mjs`](.claude/hooks/conventions-reminder.mjs))
+> que, al escribir/editar archivos en `apps/frontend/src` o `apps/backend/src`,
+> reinyecta un recordatorio de releer la sección relevante de este archivo. **claude.md
+> es la fuente única de verdad**: agrega o modifica convenciones AQUÍ; el hook solo
+> apunta a este archivo, no duplica reglas. La regla es firme por defecto; solo se
+> salta si el usuario lo autoriza explícitamente para ese archivo (sin extenderse al
+> resto de la conversación).
+
 ## Verification (before calling something done)
 
 - Tras cambios no triviales, **verifica que compila** antes de darlo por terminado:
@@ -152,6 +162,9 @@ classic `createTRPCReact`. Setup in `providers/TrpcProv/`:
   `backend/*`), so it's erased from the bundle.
 - `TrpcProv.tsx` → `QueryClient` + tRPC client with `splitLink`: subscriptions →
   `httpSubscriptionLink` (SSE), everything else → `httpBatchLink`. superjson on both.
+- `trpc-vanilla-client.ts` → a plain `createTRPCClient` (no React Query) for
+  promise-style calls (`await vanillaTRPC.items.list.query()`). Use for non-React code
+  (utils/services/stores) or manual state handling; prefer the hooks in components.
 
 Usage in components — always via `useTRPC()` + the `*Options` helpers:
 

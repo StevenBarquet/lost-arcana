@@ -241,8 +241,14 @@ tiene un `GET /api/v1/health` que lo consume).
   alinearse con Node 26. Revísalo antes de contenerizar.
 - **Valores de ejemplo por todos lados.** Renombra los placeholders (nombres de app,
   secrets de ejemplo, etc.) a lo que tu proyecto necesite.
-- **Pendientes específicos del backend** (WebSocket bidireccional, error handler,
-  etc.) están listados en [`apps/backend/README.md`](apps/backend/README.md).
+- **Pendientes específicos del backend** (procedures protegidos, error handler,
+  limpieza de envs residuo, etc.) están listados en [`apps/backend/README.md`](apps/backend/README.md).
+- **Pendientes de tRPC** (siguiente iteración):
+  - Validar los patrones de componentes y de llamadas a servicios tRPC en el **FE**.
+  - Construir los patrones de tRPC en el **BE** (estructura de routers/procedures,
+    servicios, validaciones).
+  - Crear los **generadores de tRPC del BE** basados en el punto anterior.
+  - Montar **pruebas básicas** de tRPC en **FE** y en **BE**.
 
 ---
 

@@ -4,6 +4,7 @@ import * as commitInfo from 'shared/appVersion';
 import style from './HomeCont.module.scss';
 // ---Components
 import { HelloWorld } from './HelloWorld/HelloWorld';
+import { VanillaExample } from './VanillaExample/VanillaExample';
 
 /**
  * HomeCont Component: Contenedor principal de la landing. Placeholder base del
@@ -24,6 +25,10 @@ export function HomeCont(): ReactElement {
         <div className='card'>
           <h3>Frontend listo 🎉</h3>
           <HelloWorld />
+        </div>
+        <div className='card'>
+          <h3>tRPC · cliente vanilla</h3>
+          <VanillaExample />
         </div>
         <pre>{JSON.stringify(commitInfo, null, 2)}</pre>
       </div>
