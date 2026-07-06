@@ -23,7 +23,8 @@
     "incremental": true,
     "paths": {
       "src/*": ["./src/*"],
-      "shared/*": ["../shared/*"]
+      "shared/*": ["../shared/*"],
+      "backend/*": ["../backend/*"]
     }
   },
   "include": ["vite.config.mts", "envs/**/*.ts", "**/*.ts", "**/*.tsx"],

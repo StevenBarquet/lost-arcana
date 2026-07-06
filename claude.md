@@ -51,6 +51,10 @@ monorepo/
   versiones exactas, nunca rangos con caret (`^`) ni tilde (`~`). Ejemplo correcto:
   `npm install -E <pkg>` / `npm install -D -E <pkg>`. Si un `package.json` termina
   con `^` o `~` en alguna versión, es un error: pínnealo a la versión exacta.
+  ⚠️ Poner la versión en el nombre (`npm i pkg@1.2.3`) **NO basta**: npm igual
+  escribe `^1.2.3` en el `package.json`. El flag `-E` es obligatorio SIEMPRE,
+  incluso con versión explícita. Antes de correr cualquier `npm install`,
+  verifica que `-E` esté presente en el comando.
 
 ## Shared Code (`@app/shared`)
 

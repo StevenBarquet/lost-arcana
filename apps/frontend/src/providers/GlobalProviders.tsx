@@ -3,6 +3,7 @@ import React, { ReactNode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { AntdProv } from './AntdProv/AntdProv';
 import { ScrollToTop } from './ScrollToTop/ScrollToTop';
+import { TrpcProv } from './TrpcProv/TrpcProv';
 
 interface Props {
   children: ReactNode;
@@ -10,8 +11,7 @@ interface Props {
 
 /**
  * GlobalProviders Component: agrupa los providers globales de la app (router,
- * theming, etc). Agrega aquí el provider del cliente tRPC / react-query cuando
- * se conecte el backend.
+ * cliente tRPC + React Query, theming, etc).
  * @param {Props} props - Parámetros del componente como: ...
  */
 export function GlobalProviders({ children }: Props) {
@@ -22,7 +22,9 @@ export function GlobalProviders({ children }: Props) {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <AntdProv>{children}</AntdProv>
+      <TrpcProv>
+        <AntdProv>{children}</AntdProv>
+      </TrpcProv>
     </BrowserRouter>
   );
 }

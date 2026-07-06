@@ -1,5 +1,4 @@
 import { app } from "./app/express-app";
-import { attachWebSocket } from "./app/ws";
 import { printRoutes } from "./app/route-logger";
 import { TYPED_ENVS } from "./configs/typed-envs";
 import { logger } from "./configs/logger";
@@ -13,11 +12,8 @@ const server = app.listen(port, () => {
   logger.debug('Logs visibles solo en dev\n')
   printRoutes();
   console.log(`\n\nListening: http://localhost:${port}`);
-  console.log(`WebSocket: ws://localhost:${port}/ws`);
+  console.log(`tRPC:      http://localhost:${port}/trpc`);
 });
-
-// Configuración del servidor WebSocket
-attachWebSocket(server);
 
 // Manejo de errores del servidor
 server.on("error", (err) => {

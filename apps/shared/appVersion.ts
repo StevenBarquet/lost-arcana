@@ -1,8 +1,8 @@
-export const commitID = `01dc58bd2b62bcb08a7c95228bc3d3f968611f2d`;
+export const commitID = `230fdf165baac34c74d8c92e3eef28c2e7d6f5f1`;
     
-  export const commitMssg = `fix autosave en vscode con eslint + prettier y readmes actualizados`;
+  export const commitMssg = `configuración básica de trcp en BE y FE funcionando`;
   
-  export const commitDate = `Sun Jul 05 2026 14:14:38 GMT-0600 (Central Standard Time)`;
+  export const commitDate = `Mon Jul 06 2026 06:16:24 GMT-0600 (Central Standard Time)`;
   
   export const commitAuthor = `Steven Barquet`;
   
