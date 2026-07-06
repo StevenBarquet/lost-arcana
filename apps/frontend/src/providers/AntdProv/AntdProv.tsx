@@ -1,14 +1,14 @@
 // ---Dependencies
-import { ConfigProvider, theme } from 'antd';
-import React, { ReactNode } from 'react';
-import colors from './appColors.module.scss';
-import esES from 'antd/locale/es_ES';
+import { ConfigProvider, theme } from 'antd'
+import React, { ReactNode } from 'react'
+import colors from './appColors.module.scss'
+import esES from 'antd/locale/es_ES'
 
 interface Props {
-  children: ReactNode;
+  children: ReactNode
 }
 
-export const appColors = colors;
+export const appColors = colors
 
 /**
  * AntdProv Component:  Descripción del comportamiento...
@@ -17,7 +17,7 @@ export const appColors = colors;
 export function AntdProv({ children }: Props) {
   // -----------------------CONSTS, HOOKS, STATES
   // -----------------------MAIN METHODS
-  // -----------------------AUX METHODS
+  // -----------------------HELPERS
   // -----------------------RENDER
   return (
     <ConfigProvider
@@ -31,5 +31,5 @@ export function AntdProv({ children }: Props) {
     >
       {children}
     </ConfigProvider>
-  );
+  )
 }

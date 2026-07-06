@@ -1,16 +1,19 @@
-import { appColors } from 'src/providers/AntdProv/AntdProv';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
-import { stringToJsx } from './stringToJsx';
+import { appColors } from 'src/providers/AntdProv/AntdProv'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import { stringToJsx } from './stringToJsx'
 
 const handleAsJsx = (message?: string | null | React.ReactNode) => {
-  if (!message) return;
-  if (typeof message === 'string' && message.startsWith('<') && message.endsWith('>')) {
-    console.log('stringToJsx');
-    return stringToJsx(message, { maxDepth: 2 });
+  if (!message) return
+  if (
+    typeof message === 'string' &&
+    message.startsWith('<') &&
+    message.endsWith('>')
+  ) {
+    return stringToJsx(message, { maxDepth: 2 })
   }
-  return message;
-};
+  return message
+}
 
 export const appSwal = withReactContent(
   Swal.mixin({
@@ -19,9 +22,9 @@ export const appSwal = withReactContent(
       popup: 'appSwalPopup',
     },
   }),
-);
+)
 
-const appSwalStyles = document.createElement('style');
+const appSwalStyles = document.createElement('style')
 appSwalStyles.innerHTML = `
   .appSwalPopup a {
     color: greenyellow;
@@ -30,8 +33,8 @@ appSwalStyles.innerHTML = `
     color: ${appColors.primaryColor4};
     font-weight: 600;
   }
-`;
-document.head.appendChild(appSwalStyles);
+`
+document.head.appendChild(appSwalStyles)
 
 export async function swalApiSuccessAuto(
   message?: string,
@@ -43,8 +46,8 @@ export async function swalApiSuccessAuto(
     icon: 'success',
     timerProgressBar: true,
     timer: 5500,
-  });
-  thenCb?.();
+  })
+  thenCb?.()
 }
 
 export async function swalWarn(
@@ -57,8 +60,8 @@ export async function swalWarn(
     icon: 'warning',
     timerProgressBar: true,
     timer: 6500,
-  });
-  thenCb?.();
+  })
+  thenCb?.()
 }
 
 export async function swalApiError(message?: string) {
@@ -68,7 +71,7 @@ export async function swalApiError(message?: string) {
       handleAsJsx(message) ||
       'Lo sentimos, hubo un problema al procesar tu solicitud. Por favor, asegúrate de que tu conexión a internet está estable y vuelve a intentarlo.',
     icon: 'error',
-  });
+  })
 }
 export async function swalApiConfirm({
   callback,
@@ -76,10 +79,10 @@ export async function swalApiConfirm({
   fireSuccess = false,
   successMsg,
 }: {
-  callback: (() => void) | (() => Promise<void>);
-  fireSuccess?: boolean;
-  confirmMsg?: string | React.ReactNode;
-  successMsg?: string;
+  callback: (() => void) | (() => Promise<void>)
+  fireSuccess?: boolean
+  confirmMsg?: string | React.ReactNode
+  successMsg?: string
 }) {
   await appSwal
     .fire({
@@ -93,10 +96,10 @@ export async function swalApiConfirm({
     })
     .then(async (result) => {
       if (result.isConfirmed) {
-        await callback();
+        await callback()
         if (fireSuccess) {
-          await swalApiSuccessAuto(successMsg);
+          await swalApiSuccessAuto(successMsg)
         }
       }
-    });
+    })
 }

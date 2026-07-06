@@ -56,7 +56,7 @@ export function use{{pascalCase name}}Mutate({
   {{else}}
   const {{camelCase name}}Mutate = onMutate
   {{/if}}
-  // -----------------------AUX METHODS
+  // -----------------------HELPERS
   // ---------------HOOK DATA
   return { {{camelCase name}}Mutate, loading };
 }

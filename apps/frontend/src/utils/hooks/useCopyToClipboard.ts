@@ -1,7 +1,7 @@
-import { useMiniAlerts } from './useMiniAlerts';
+import { useMiniAlerts } from './useMiniAlerts'
 
 interface Props {
-  alertMsg?: string;
+  alertMsg?: string
 }
 
 /**
@@ -17,22 +17,22 @@ interface Props {
  */
 export function useCopyToClipboard({ alertMsg }: Props) {
   // -----------------------CONSTS, HOOKS, STATES
-  const { alertComponent, onSuccessAlert } = useMiniAlerts();
+  const { alertComponent, onSuccessAlert } = useMiniAlerts()
   // -----------------------MAIN METHODS
   function copyText(text: string) {
-    copyToClipboard(text);
-    onSuccessAlert(alertMsg || 'Copiado al portapapeles');
+    copyToClipboard(text)
+    onSuccessAlert(alertMsg || 'Copiado al portapapeles')
   }
-  // -----------------------AUX METHODS
+  // -----------------------HELPERS
   // -----------------------RENDER
   return {
     /** Función para copiar al portapapeles */
     copyText,
     /** React Element con la alerta, agrégalo en tu jsx */
     alertComponent,
-  };
+  }
 }
 
 export async function copyToClipboard(toCopy: string) {
-  await navigator.clipboard.writeText(toCopy);
+  await navigator.clipboard.writeText(toCopy)
 }

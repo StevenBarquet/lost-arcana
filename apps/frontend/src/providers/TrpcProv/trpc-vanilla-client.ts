@@ -1,7 +1,7 @@
-import { createTRPCClient, httpBatchLink } from '@trpc/client';
-import superjson from 'superjson';
-import type { AppRouter } from 'backend/src/trpc/app.router';
-import { FRONTEND_ENVS } from 'src/utils/constants/frontend-envs';
+import { createTRPCClient, httpBatchLink } from '@trpc/client'
+import superjson from 'superjson'
+import type { AppRouter } from 'backend/src/trpc/app.router'
+import { FRONTEND_ENVS } from 'src/utils/constants/frontend-envs'
 
 /**
  * Cliente tRPC "vanilla" (sin React Query): se consume como promesas asíncronas,
@@ -25,4 +25,4 @@ export const vanillaTRPC = createTRPCClient<AppRouter>({
       transformer: superjson,
     }),
   ],
-});
+})

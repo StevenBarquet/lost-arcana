@@ -1,11 +1,12 @@
 // ---Dependencies
-import { ReactElement, useState } from 'react';
+import { useState } from 'react'
+import type { ReactElement } from 'react'
 // ---UI Dependencies
-import { Button, Input, Space } from 'antd';
+import { Button, Input, Space } from 'antd'
 
 interface Props {
-  onCreate: (name: string) => void;
-  loading?: boolean;
+  onCreate: (name: string) => void
+  loading?: boolean
 }
 
 /**
@@ -17,13 +18,13 @@ interface Props {
  */
 export function CreateItemForm({ onCreate, loading }: Props): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
-  const [name, setName] = useState('');
+  const [name, setName] = useState('')
 
   // -----------------------MAIN METHODS
   function handleCreate() {
-    if (!name.trim()) return;
-    onCreate(name.trim());
-    setName('');
+    if (!name.trim()) return
+    onCreate(name.trim())
+    setName('')
   }
 
   // -----------------------RENDER
@@ -39,5 +40,5 @@ export function CreateItemForm({ onCreate, loading }: Props): ReactElement {
         Crear
       </Button>
     </Space.Compact>
-  );
+  )
 }

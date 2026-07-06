@@ -29,23 +29,15 @@
       font-size: 26px;
     }
   }
-  .title {
-    &-success {
-      svg {
-        color: $colorSuccess;
-      }
-    }
-    &-error {
-      svg {
-        color: $colorError;
-      }
-    }
-    &-warning,
-    &-confirm {
-      svg {
-        color: $colorWarning;
-      }
-    }
+  .title-success svg {
+    color: $colorSuccess;
+  }
+  .title-error svg {
+    color: $colorError;
+  }
+  .title-warning svg,
+  .title-confirm svg {
+    color: $colorWarning;
   }
 
   .message {

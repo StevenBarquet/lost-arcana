@@ -1,9 +1,9 @@
 /* eslint-disable no-restricted-syntax */
-// ---Dependencys
-import { ReactElement } from 'react';
-import { Helmet } from 'react-helmet';
+// ---Dependencies
+import type { ReactElement } from 'react'
+import { Helmet } from 'react-helmet'
 // ---Components
-import { Page404Cont } from './Page404Cont/Page404Cont';
+import { Page404Cont } from './Page404Cont/Page404Cont'
 
 /**
  * Componente HomePage: este componente es para dar datos al Helmet de
@@ -18,5 +18,5 @@ export default function Page404(): ReactElement {
       </Helmet>
       <Page404Cont />
     </>
-  );
+  )
 }

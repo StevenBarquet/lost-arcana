@@ -1,5 +1,5 @@
 // ---Dependencies
-import { message } from 'antd';
+import { message } from 'antd'
 
 /**
  * Hook personalizado para mostrar alertas utilizando el componente message de Ant Design.
@@ -21,33 +21,33 @@ import { message } from 'antd';
  */
 export function useMiniAlerts() {
   // -----------------------CONSTS, HOOKS, STATES
-  const [messageApi, contextHolder] = message.useMessage();
+  const [messageApi, contextHolder] = message.useMessage()
   // -----------------------MAIN METHODS
   const onSuccessAlert = (message?: string) => {
     messageApi.open({
       type: 'success',
       content: message || 'Operación exitosa',
-    });
-  };
+    })
+  }
 
   const onErrorAlert = (message?: string) => {
     messageApi.open({
       type: 'error',
       content: message || 'Ha ocurrido un error',
-    });
-  };
+    })
+  }
 
   const onWarningAlert = (message?: string) => {
     messageApi.open({
       type: 'warning',
       content: message || 'Atención: Verificar la información ingresada',
-    });
-  };
+    })
+  }
   // -----------------------RENDER
   return {
     alertComponent: contextHolder,
     onSuccessAlert,
     onErrorAlert,
     onWarningAlert,
-  };
+  }
 }

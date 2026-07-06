@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import type { ReactNode } from 'react'
 
 export type ReactSelectOpt<T> = {
   label: string | ReactNode

@@ -1,8 +1,8 @@
 // ---Dependencies
-import React from 'react';
+import React from 'react'
 // ---Styles
-import style from './NoData.module.scss';
-import { Icon } from '@iconify/react';
+import style from './NoData.module.scss'
+import { Icon } from '@iconify/react'
 
 /**
  * NoData Component:  Descripción del comportamiento...
@@ -10,14 +10,14 @@ import { Icon } from '@iconify/react';
 export function NoData({ label }: { label?: string }) {
   // -----------------------CONSTS, HOOKS, STATES
   // -----------------------MAIN METHODS
-  // -----------------------AUX METHODS
+  // -----------------------HELPERS
   // -----------------------RENDER
   return (
     <div className={style['NoData']}>
-      <h3 className='noData'>
+      <h3 className="noData">
         {label || 'Sin datos '}
-        <Icon icon='iconoir:info-empty' />
+        <Icon icon="iconoir:info-empty" />
       </h3>
     </div>
-  );
+  )
 }

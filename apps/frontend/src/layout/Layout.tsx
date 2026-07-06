@@ -1,9 +1,9 @@
 // ---Dependencies
-import React, { ReactNode } from 'react';
-import { FullScreenLoading } from './FullScreenLoading/FullScreenLoading';
+import React, { ReactNode } from 'react'
+import { FullScreenLoading } from './FullScreenLoading/FullScreenLoading'
 
 interface Props {
-  children: ReactNode;
+  children: ReactNode
 }
 
 /**
@@ -13,12 +13,12 @@ interface Props {
 export function Layout({ children }: Props) {
   // -----------------------CONSTS, HOOKS, STATES
   // -----------------------MAIN METHODS
-  // -----------------------AUX METHODS
+  // -----------------------HELPERS
   // -----------------------RENDER
   return (
     <>
       {children}
       <FullScreenLoading />
     </>
-  );
+  )
 }

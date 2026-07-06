@@ -1,10 +1,10 @@
 // ---Dependencies
-import { ReactElement, useCallback, useEffect, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useState } from 'react'
 // ---Components
-import { ItemsList, type Item } from '../ItemsList/ItemsList';
-import { CreateItemForm } from '../CreateItemForm/CreateItemForm';
+import { ItemsList, type Item } from '../ItemsList/ItemsList'
+import { CreateItemForm } from '../CreateItemForm/CreateItemForm'
 // ---Config/Utils
-import { vanillaTRPC } from 'src/providers/TrpcProv/trpc-vanilla-client';
+import { vanillaTRPC } from 'src/providers/TrpcProv/trpc-vanilla-client'
 
 /**
  * VanillaExample Component: mismo CRUD que `HelloWorld`, pero consumiendo tRPC
@@ -20,43 +20,45 @@ import { vanillaTRPC } from 'src/providers/TrpcProv/trpc-vanilla-client';
  */
 export function VanillaExample(): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
-  const [items, setItems] = useState<Item[]>();
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [creating, setCreating] = useState(false);
+  const [items, setItems] = useState<Item[]>()
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [creating, setCreating] = useState(false)
 
   // -----------------------MAIN METHODS
   const fetchItems = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
+    setIsLoading(true)
+    setError(null)
     try {
-      const data = await vanillaTRPC.items.list.query();
-      setItems(data);
+      const data = await vanillaTRPC.items.list.query()
+      setItems(data)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error desconocido');
+      setError(err instanceof Error ? err.message : 'Error desconocido')
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  }, []);
+  }, [])
 
   async function handleCreate(name: string) {
-    setCreating(true);
+    setCreating(true)
     try {
-      await vanillaTRPC.items.create.mutate({ name });
+      await vanillaTRPC.items.create.mutate({ name })
       // La promesa resolvió sin error → refrescamos la lista.
-      await fetchItems();
+      await fetchItems()
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al crear');
+      setError(err instanceof Error ? err.message : 'Error al crear')
     } finally {
-      setCreating(false);
+      setCreating(false)
     }
   }
 
-  // -----------------------AUX METHODS
-  // Fetch inicial al montar.
+  // -----------------------HELPERS
+  // WHY: el cliente vanilla no tiene cache ni ciclo de vida, así que el fetch inicial
+  // se dispara a mano en el mount (excepción "initial data fetching" de claude.md).
+  // Es el punto de la demo: contrasta con HelloWorld, donde React Query lo hace solo.
   useEffect(() => {
-    void fetchItems();
-  }, [fetchItems]);
+    void fetchItems()
+  }, [fetchItems])
 
   // -----------------------RENDER
   return (
@@ -67,5 +69,5 @@ export function VanillaExample(): ReactElement {
         <CreateItemForm onCreate={handleCreate} loading={creating} />
       </div>
     </div>
-  );
+  )
 }

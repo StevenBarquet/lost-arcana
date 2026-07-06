@@ -1,16 +1,16 @@
 // ---Dependencies
-import React from 'react';
+import React from 'react'
 // ---Styles
-import style from './LinkList.module.scss';
-import { Link } from 'react-router-dom';
+import style from './LinkList.module.scss'
+import { Link } from 'react-router-dom'
 
 export interface LinkListProps {
-  hide?: boolean;
+  hide?: boolean
   items?: {
-    type: 'internal' | 'external';
-    label: string | React.ReactNode;
-    url: string;
-  }[];
+    type: 'internal' | 'external'
+    label: string | React.ReactNode
+    url: string
+  }[]
 }
 
 /**
@@ -19,11 +19,11 @@ export interface LinkListProps {
  */
 export function LinkList({ hide, items }: LinkListProps) {
   // -----------------------CONSTS, HOOKS, STATES
-  const areElements = items && items?.length > 0;
+  const areElements = items && items?.length > 0
   // -----------------------MAIN METHODS
-  // -----------------------AUX METHODS
+  // -----------------------HELPERS
   // -----------------------RENDER
-  if (hide || !areElements) return null;
+  if (hide || !areElements) return null
   return (
     <div className={style['LinkList']}>
       {items.map((item, i) => (
@@ -31,12 +31,12 @@ export function LinkList({ hide, items }: LinkListProps) {
           {item.type === 'internal' ? (
             <Link to={item.url}>{item.label}</Link>
           ) : (
-            <a href={item.url} target='_blank' rel='noopener noreferrer'>
+            <a href={item.url} target="_blank" rel="noopener noreferrer">
               {item.label}
             </a>
           )}
         </div>
       ))}
     </div>
-  );
+  )
 }

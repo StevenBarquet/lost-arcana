@@ -1,11 +1,12 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable react/jsx-fragments */
-// ---Dependencys
-import { ReactElement, Fragment, lazy, Suspense } from 'react';
-import { Route, Routes as RouteProv } from 'react-router-dom';
-import { LazyLoadingScreen } from '../layout/LazyLoadingScreen/LazyLoadingScreen';
+// ---Dependencies
+import { Fragment, lazy, Suspense } from 'react'
+import type { ReactElement } from 'react'
+import { Route, Routes as RouteProv } from 'react-router-dom'
+import { LazyLoadingScreen } from '../layout/LazyLoadingScreen/LazyLoadingScreen'
 // ---Lazy loaded Modules
-const AppRoutes = lazy(() => import('src/Router/AppRoutes'));
+const AppRoutes = lazy(() => import('src/Router/AppRoutes'))
 
 /**
  * Router Component: raíz de ruteo de la aplicación. Carga los módulos de rutas de
@@ -18,9 +19,9 @@ export function Router(): ReactElement {
     <Fragment>
       <Suspense fallback={<LazyLoadingScreen />}>
         <RouteProv>
-          <Route path='/*' element={<AppRoutes />} />
+          <Route path="/*" element={<AppRoutes />} />
         </RouteProv>
       </Suspense>
     </Fragment>
-  );
+  )
 }

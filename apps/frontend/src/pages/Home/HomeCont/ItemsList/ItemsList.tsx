@@ -1,16 +1,16 @@
 // ---Dependencies
-import { ReactElement } from 'react';
-import type { inferRouterOutputs } from '@trpc/server';
+import type { ReactElement } from 'react'
+import type { inferRouterOutputs } from '@trpc/server'
 // ---Config/Utils
-import type { AppRouter } from 'backend/src/trpc/app.router';
+import type { AppRouter } from 'backend/src/trpc/app.router'
 
 /** Tipo de un item, inferido de la salida del router tRPC (única fuente de verdad). */
-export type Item = inferRouterOutputs<AppRouter>['items']['list'][number];
+export type Item = inferRouterOutputs<AppRouter>['items']['list'][number]
 
 interface Props {
-  items?: Item[];
-  isLoading?: boolean;
-  error?: string | null;
+  items?: Item[]
+  isLoading?: boolean
+  error?: string | null
 }
 
 /**
@@ -22,9 +22,9 @@ interface Props {
  */
 export function ItemsList({ items, isLoading, error }: Props): ReactElement {
   // -----------------------RENDER
-  if (isLoading) return <p className="ItemsList">Cargando…</p>;
-  if (error) return <p className="ItemsList">Error: {error}</p>;
-  if (!items?.length) return <p className="ItemsList">Sin items.</p>;
+  if (isLoading) return <p className="ItemsList">Cargando…</p>
+  if (error) return <p className="ItemsList">Error: {error}</p>
+  if (!items?.length) return <p className="ItemsList">Sin items.</p>
 
   return (
     <ul className="ItemsList">
@@ -34,5 +34,5 @@ export function ItemsList({ items, isLoading, error }: Props): ReactElement {
         </li>
       ))}
     </ul>
-  );
+  )
 }

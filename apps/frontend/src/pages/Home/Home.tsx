@@ -1,9 +1,9 @@
 /* eslint-disable no-restricted-syntax */
-// ---Dependencys
-import { ReactElement } from 'react';
-import { Helmet } from 'react-helmet';
+// ---Dependencies
+import type { ReactElement } from 'react'
+import { Helmet } from 'react-helmet'
 // ---Components
-import { HomeCont } from 'src/pages/Home/HomeCont/HomeCont';
+import { HomeCont } from 'src/pages/Home/HomeCont/HomeCont'
 
 /**
  * Componente HomePage: este componente es para dar datos al Helmet de
@@ -15,10 +15,13 @@ export default function Home(): ReactElement {
     <>
       <Helmet>
         <title>Monorepo Template 2026</title>
-        <meta name='robots' content='index,follow' />
-        <meta name='description' content='Template base monorepo — Vite + React + tRPC' />
+        <meta name="robots" content="index,follow" />
+        <meta
+          name="description"
+          content="Template base monorepo — Vite + React + tRPC"
+        />
       </Helmet>
       <HomeCont />
     </>
-  );
+  )
 }

@@ -1,23 +1,24 @@
 // ---Dependencies
-import { ReactNode, useState } from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useState } from 'react'
+import type { ReactNode } from 'react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import {
   createTRPCClient,
   httpBatchLink,
   httpSubscriptionLink,
   splitLink,
-} from '@trpc/client';
-import superjson from 'superjson';
+} from '@trpc/client'
+import superjson from 'superjson'
 // ---Config
-import type { AppRouter } from 'backend/src/trpc/app.router';
-import { FRONTEND_ENVS } from 'src/utils/constants/frontend-envs';
-import { TRPCProvider } from './trpc';
+import type { AppRouter } from 'backend/src/trpc/app.router'
+import { FRONTEND_ENVS } from 'src/utils/constants/frontend-envs'
+import { TRPCProvider } from './trpc'
 
 interface Props {
-  children: ReactNode;
+  children: ReactNode
 }
 
-const TRPC_URL = `${FRONTEND_ENVS.BACKEND_URL}/trpc`;
+const TRPC_URL = `${FRONTEND_ENVS.BACKEND_URL}/trpc`
 
 /**
  * TrpcProv: monta el cliente tRPC + React Query.
@@ -30,7 +31,7 @@ const TRPC_URL = `${FRONTEND_ENVS.BACKEND_URL}/trpc`;
  */
 export function TrpcProv({ children }: Props) {
   // -----------------------CONSTS, HOOKS, STATES
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(() => new QueryClient())
   const [trpcClient] = useState(() =>
     createTRPCClient<AppRouter>({
       links: [
@@ -47,7 +48,7 @@ export function TrpcProv({ children }: Props) {
         }),
       ],
     }),
-  );
+  )
 
   // -----------------------RENDER
   return (
@@ -56,5 +57,5 @@ export function TrpcProv({ children }: Props) {
         {children}
       </TRPCProvider>
     </QueryClientProvider>
-  );
+  )
 }

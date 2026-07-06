@@ -27,15 +27,14 @@
   .item {
     margin: 8px 0 0 0;
     position: relative;
-
     a {
       font-size: 16px;
       display: flex;
       align-items: center;
-      svg {
-        margin-left: 5px;
-      }
     }
+  }
+  .item a svg {
+    margin-left: 5px;
   }
 
   .odd a {

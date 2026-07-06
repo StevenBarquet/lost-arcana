@@ -38,6 +38,7 @@
 | ----------------- | ------------------------------------------------------------------- |
 | ⚡ Build           | **Vite 8** + `@vitejs/plugin-react` + PostCSS (autoprefixer, cssnano, preset-env) |
 | 🎨 UI             | **Ant Design 6** (ConfigProvider en modo dark vía `AntdProv`)       |
+| 🌓 Tema light     | `AntdProv/AntdProvLight.tsx` — variante ligera lista por si se necesita montar una sección con Ant Design en modo light (no se usa por defecto) |
 | 🔗 Datos          | **tRPC 11 + TanStack React Query 5** type-safe (cliente en `providers/TrpcProv`) |
 | 🗃️ Estado         | **Zustand 5** (con `devtools` + `persist`)                          |
 | 🧭 Ruteo          | **react-router** con rutas centralizadas en `Router/AppRoutes.tsx`  |

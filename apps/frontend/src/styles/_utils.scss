@@ -27,55 +27,55 @@
 
 // --- MEDIA QUERIES
 $breakpoints: (
-  xs: "xs",
+  xs: 'xs',
   // Extra small devices (<576px)
-  sm: "sm",
+  sm: 'sm',
   // Small devices (≥576px)
-  md: "md",
+  md: 'md',
   // Medium devices (≥768px)
-  lg: "lg",
+  lg: 'lg',
   // Large devices (≥992px)
-  xl: "xl",
+  xl: 'xl',
   // Extra large devices (≥1200px)
-  xxl: "xxl",
+  xxl: 'xxl',
   // XXL devices (≥1600px)
-  mob: "mob",
+  mob: 'mob',
   // Mobile devices (<768px)
-  desk: "desk" // Desktop (>768px)
+  desk: 'desk', // Desktop (>768px)
 );
 
 @mixin onlyIn($key) {
   $type: map.get($breakpoints, $key);
 
-  @if $type == "xs" {
+  @if $type == 'xs' {
     @media (max-width: 575px) {
       @content;
     }
-  } @else if $type == "sm" {
+  } @else if $type == 'sm' {
     @media (min-width: 576px) and (max-width: 767px) {
       @content;
     }
-  } @else if $type == "md" {
+  } @else if $type == 'md' {
     @media (min-width: 768px) and (max-width: 991px) {
       @content;
     }
-  } @else if $type == "lg" {
+  } @else if $type == 'lg' {
     @media (min-width: 992px) and (max-width: 1199px) {
       @content;
     }
-  } @else if $type == "xl" {
+  } @else if $type == 'xl' {
     @media (min-width: 1200px) and (max-width: 1599px) {
       @content;
     }
-  } @else if $type == "xxl" {
+  } @else if $type == 'xxl' {
     @media (min-width: 1600px) {
       @content;
     }
-  } @else if $type == "mob" {
+  } @else if $type == 'mob' {
     @media (max-width: 767px) {
       @content;
     }
-  } @else if $type == "desk" {
+  } @else if $type == 'desk' {
     @media (min-width: 768px) {
       @content;
     }

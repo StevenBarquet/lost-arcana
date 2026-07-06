@@ -1,13 +1,13 @@
 // ---Dependencies
-import { ConfigProvider, theme } from 'antd';
-import React, { ReactNode } from 'react';
-import colors from './appColors.module.scss';
+import { ConfigProvider, theme } from 'antd'
+import React, { ReactNode } from 'react'
+import colors from './appColors.module.scss'
 
 interface Props {
-  children: ReactNode;
+  children: ReactNode
 }
 
-export const appColors = colors;
+export const appColors = colors
 
 /**
  * AntdProvLight Component:  Descripción del comportamiento...
@@ -16,7 +16,7 @@ export const appColors = colors;
 export function AntdProvLight({ children }: Props) {
   // -----------------------CONSTS, HOOKS, STATES
   // -----------------------MAIN METHODS
-  // -----------------------AUX METHODS
+  // -----------------------HELPERS
   // -----------------------RENDER
   return (
     <ConfigProvider
@@ -29,5 +29,5 @@ export function AntdProvLight({ children }: Props) {
     >
       {children}
     </ConfigProvider>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import { GridSystem } from 'react-forge-grid';
+import type { GridSystem } from 'react-forge-grid'
 
 /**
  * basicResponsive function: Handle the grid for responsivity basic behaviors for being used in paramas for antd cols
@@ -13,7 +13,7 @@ export function basicResponsive(normalSize: number) {
     lg: normalSize,
     xl: normalSize,
     xxl: normalSize,
-  };
+  }
 }
 
 /**
@@ -29,7 +29,7 @@ export function basicResponsiveMD(normalSize: number) {
     lg: normalSize,
     xl: normalSize,
     xxl: normalSize,
-  };
+  }
 }
 
 /**
@@ -45,7 +45,7 @@ export function customResponsive(normalSize: number, mobileSize: number) {
     lg: normalSize,
     xl: normalSize,
     xxl: normalSize,
-  };
+  }
 }
 
 /**
@@ -61,7 +61,7 @@ export function customResponsiveMD(normalSize: number, mobileSize: number) {
     lg: normalSize,
     xl: normalSize,
     xxl: normalSize,
-  };
+  }
 }
 
 /** propSizePicker: setea un valor por defecto para las propiedas del grid y setea las propiedades que quieras modificar */
@@ -73,5 +73,5 @@ export function propSizePicker(props: GridSystem, rest: number) {
     lg: props.lg || rest,
     xl: props.xl || rest,
     xxl: props.xxl || rest,
-  };
+  }
 }

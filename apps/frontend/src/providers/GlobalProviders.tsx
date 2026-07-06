@@ -1,12 +1,12 @@
 // ---Dependencies
-import React, { ReactNode } from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { AntdProv } from './AntdProv/AntdProv';
-import { ScrollToTop } from './ScrollToTop/ScrollToTop';
-import { TrpcProv } from './TrpcProv/TrpcProv';
+import React, { ReactNode } from 'react'
+import { BrowserRouter } from 'react-router-dom'
+import { AntdProv } from './AntdProv/AntdProv'
+import { ScrollToTop } from './ScrollToTop/ScrollToTop'
+import { TrpcProv } from './TrpcProv/TrpcProv'
 
 interface Props {
-  children: ReactNode;
+  children: ReactNode
 }
 
 /**
@@ -17,7 +17,7 @@ interface Props {
 export function GlobalProviders({ children }: Props) {
   // -----------------------CONSTS, HOOKS, STATES
   // -----------------------MAIN METHODS
-  // -----------------------AUX METHODS
+  // -----------------------HELPERS
   // -----------------------RENDER
   return (
     <BrowserRouter>
@@ -26,5 +26,5 @@ export function GlobalProviders({ children }: Props) {
         <AntdProv>{children}</AntdProv>
       </TrpcProv>
     </BrowserRouter>
-  );
+  )
 }

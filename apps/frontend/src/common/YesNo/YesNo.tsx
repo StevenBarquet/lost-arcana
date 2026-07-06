@@ -1,7 +1,7 @@
 // ---Dependencies
-import React from "react";
+import React from 'react'
 // ---Styles
-import style from './YesNo.module.scss';
+import style from './YesNo.module.scss'
 
 interface Props {
   value: boolean
@@ -11,14 +11,16 @@ interface Props {
  * YesNo Component:  Descripción del comportamiento...
  * @param {Props} props - Parámetros del componente como: ...
  */
-export function YesNo({value}:Props) {
+export function YesNo({ value }: Props) {
   // -----------------------CONSTS, HOOKS, STATES
   // -----------------------MAIN METHODS
-  // -----------------------AUX METHODS
+  // -----------------------HELPERS
   // -----------------------RENDER
   return (
-    <span className={`${style['YesNo']} ${style['YesNo']}-${value ? 'yes' : 'no'}`}>
+    <span
+      className={`${style['YesNo']} ${style['YesNo']}-${value ? 'yes' : 'no'}`}
+    >
       {value ? 'Sí' : 'No'}
     </span>
-  );
+  )
 }

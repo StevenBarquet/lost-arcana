@@ -1,15 +1,16 @@
 // ---Dependencies
-import { ReactElement, useState } from 'react';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { useSubscription } from '@trpc/tanstack-react-query';
+import { useState } from 'react'
+import type { ReactElement } from 'react'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { useSubscription } from '@trpc/tanstack-react-query'
 // ---UI Dependencies
-import { Button } from 'antd';
+import { Button } from 'antd'
 // ---Components
-import { ItemsList } from '../ItemsList/ItemsList';
-import { CreateItemForm } from '../CreateItemForm/CreateItemForm';
+import { ItemsList } from '../ItemsList/ItemsList'
+import { CreateItemForm } from '../CreateItemForm/CreateItemForm'
 // ---Config/Utils
-import { FRONTEND_ENVS } from 'src/utils/constants/frontend-envs';
-import { useTRPC } from 'src/providers/TrpcProv/trpc';
+import { FRONTEND_ENVS } from 'src/utils/constants/frontend-envs'
+import { useTRPC } from 'src/providers/TrpcProv/trpc'
 
 /**
  * HelloWorld Component: ejemplo end-to-end de tRPC con el patrón **TanStack React
@@ -22,28 +23,28 @@ import { useTRPC } from 'src/providers/TrpcProv/trpc';
  */
 export function HelloWorld(): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
-  const trpc = useTRPC();
+  const trpc = useTRPC()
 
-  const itemsQuery = useQuery(trpc.items.list.queryOptions());
+  const itemsQuery = useQuery(trpc.items.list.queryOptions())
   const createItem = useMutation(
     trpc.items.create.mutationOptions({
       onSuccess: () => itemsQuery.refetch(),
     }),
-  );
+  )
 
   // Subscription por SSE: acumula las notificaciones que empuja el servidor.
-  const [notifications, setNotifications] = useState<string[]>([]);
+  const [notifications, setNotifications] = useState<string[]>([])
   useSubscription(
     trpc.notifications.onNotification.subscriptionOptions(undefined, {
       onData: ({ data }) => {
         setNotifications((prev) => [
           `${data.message} · ${data.timestamp.toLocaleTimeString()}`,
           ...prev,
-        ]);
+        ])
       },
     }),
-  );
-  const ping = useMutation(trpc.notifications.ping.mutationOptions());
+  )
+  const ping = useMutation(trpc.notifications.ping.mutationOptions())
 
   // -----------------------RENDER
   return (
@@ -77,5 +78,5 @@ export function HelloWorld(): ReactElement {
         </ul>
       )}
     </div>
-  );
+  )
 }

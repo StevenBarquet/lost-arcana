@@ -214,7 +214,7 @@ Every component follows this internal structure:
 ```tsx
 // -----------------------CONSTS, HOOKS, STATES
 // -----------------------MAIN METHODS
-// -----------------------AUX METHODS
+// -----------------------HELPERS
 // -----------------------RENDER
 ```
 
@@ -326,20 +326,34 @@ if not immediately used. Usa `as *` para consumir variables/mixins sin namespace
 
 ### Nesting Rules
 
-- Only 1 level of nesting depth inside the component class
-- For deeper specificity, chain class names on the same level:
+- El raíz `.ComponentName` es **depth 0**. Anida como máximo **2 niveles de
+  profundidad** desde él (un hijo y su nieto es lo más profundo permitido).
+- Contar es mecánico: cada `{` anidado suma un nivel. Un tag anidado directo bajo
+  el raíz (`.ComponentName { .title { svg { } } }` → `svg` está en depth 2) es
+  válido; un cuarto `{` (depth 3) NO lo es.
+- Para más profundidad, **aplana encadenando selectores en el mismo nivel**.
 
 ```scss
-// GOOD
-.Parent {
-  .child .grandchild { ... }
+// GOOD — depth 2: .ComponentName > .title > svg
+.ComponentName {
+  .title {
+    svg { font-size: 34px; }
+    span { font-weight: 500; }
+  }
 }
 
-// BAD
-.Parent {
-  .child {
-    .grandchild { ... }
+// BAD — depth 3: .title > &-success > svg
+.ComponentName {
+  .title {
+    &-success {
+      svg { color: $colorSuccess; }
+    }
   }
+}
+
+// GOOD — el tercer nivel se aplana encadenando en el mismo nivel
+.ComponentName {
+  .title-success svg { color: $colorSuccess; }
 }
 ```
 
