@@ -24,7 +24,9 @@
     "generate-comp": "npx plop --plopfile generators/frontend/plopfile.js",
     "generate-store": "npx plop --plopfile generators/frontend/plopfile-store.js",
     "generate-form": "npx plop --plopfile generators/frontend/plopfile-form.js",
-    "generate-page": "npx plop --plopfile generators/frontend/plopfile-page.js"
+    "generate-page": "npx plop --plopfile generators/frontend/plopfile-page.js",
+    "space_4": "---------------------------OTHERS--------------------------------",
+    "clean-modules": "rm -rf node_modules && rm -rf apps/backend/node_modules && rm -rf apps/frontend/node_modules && rm -rf apps/backend/dist && rm -rf apps/frontend/dist"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
