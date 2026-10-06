@@ -11,7 +11,7 @@ export async function getGitInfo() {
     git.getLastCommit(function (er, commit) {
       const fullFile = path.join(
         __dirname,
-        '../../apps/shared/appVersion.ts',
+        '../../src/appConfig/appVersion.ts',
       );
       // read commit object properties
       const commitID = commit?.hash;
