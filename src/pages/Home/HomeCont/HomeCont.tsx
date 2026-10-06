@@ -11,7 +11,7 @@ export function HomeCont(): ReactElement {
     <div className={style['HomeCont']}>
       <div className="centerContainer">
         <h2>
-          Lost <span>Arcana</span>
+          React + Vite <span>Template</span>
         </h2>
       </div>
     </div>
