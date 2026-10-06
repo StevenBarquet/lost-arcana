@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import style from './HealthCont.module.scss'
 // ---Config/Utils
 import { FRONTEND_ENVS } from 'src/utils/constants/frontend-envs'
+import * as COMMIT_INFO from 'src/appConfig/appVersion'
 
 export function HealthCont(): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
@@ -11,6 +12,13 @@ export function HealthCont(): ReactElement {
     { label: 'Modo', value: FRONTEND_ENVS.MODE },
     { label: 'Producción', value: String(FRONTEND_ENVS.PROD) },
     { label: 'Frontend URL', value: FRONTEND_ENVS.FRONTEND_URL },
+  ]
+  const fullInfo = [
+    ...envInfo,
+    ...Object.entries(COMMIT_INFO).map(([key, value]) => ({
+      label: key,
+      value,
+    })),
   ]
 
   // -----------------------MAIN METHODS
@@ -30,7 +38,7 @@ export function HealthCont(): ReactElement {
         <section className="card">
           <h3>Entorno</h3>
           <dl>
-            {envInfo.map((row) => (
+            {fullInfo.map((row) => (
               <div className="row" key={row.label}>
                 <dt>{row.label}</dt>
                 <dd>{row.value}</dd>
