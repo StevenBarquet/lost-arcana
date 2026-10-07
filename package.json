@@ -13,12 +13,15 @@
     "generate-comp": "npx plop --plopfile generators/frontend/plopfile.js",
     "generate-store": "npx plop --plopfile generators/frontend/plopfile-store.js",
     "generate-page": "npx plop --plopfile generators/frontend/plopfile-page.js",
-    "generate-hook": "npx plop --plopfile generators/frontend/plopfile-hook.js"
+    "generate-hook": "npx plop --plopfile generators/frontend/plopfile-hook.js",
+    "generate-form": "npx plop --plopfile generators/frontend/plopfile-form.js"
   },
   "dependencies": {
     "@fontsource/inter": "5.2.8",
     "antd": "6.5.0",
     "dayjs": "1.11.23",
+    "formik": "2.4.9",
+    "framer-motion": "14.0.0",
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "react-forge-grid": "2.3.1",
@@ -28,6 +31,7 @@
     "sweetalert2": "11.26.25",
     "sweetalert2-custom-theme": "5.0.26",
     "sweetalert2-react-content": "5.1.2",
+    "zod-formik-adapter": "2.0.0",
     "zustand": "5.0.14"
   },
   "devDependencies": {

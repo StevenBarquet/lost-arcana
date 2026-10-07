@@ -7,6 +7,14 @@
   min-height: 100vh;
   color: white;
   font-family: 'Inter';
+  position: relative;
+  top: -20px;
+  padding: 35px 8px;
+
+  .ant-btn {
+    margin: 20px auto 10px auto;
+    display: block;
+  }
 }
 
 // // desk mob xs sm md lg xl xxl
