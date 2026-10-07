@@ -1,24 +1,32 @@
 // ---Dependencies
-import React, { ReactNode } from 'react'
+import type { ReactNode, ReactElement } from 'react'
+import { Layout as AntdLayout } from 'antd'
+// ---Components
 import { FullScreenLoading } from './FullScreenLoading/FullScreenLoading'
+import { AppHeader } from './AppHeader/AppHeader'
+import { BottomNav } from './BottomNav/BottomNav'
+
+const { Header, Footer, Content } = AntdLayout
 
 interface Props {
   children: ReactNode
 }
 
-/**
- * Layout Component:  Descripción del comportamiento...
- * @param {Props} props - Parámetros del componente como: ...
- */
-export function Layout({ children }: Props) {
-  // -----------------------CONSTS, HOOKS, STATES
-  // -----------------------MAIN METHODS
-  // -----------------------HELPERS
+export function Layout({ children }: Props): ReactElement {
   // -----------------------RENDER
   return (
-    <>
-      {children}
-      <FullScreenLoading />
-    </>
+    <AntdLayout>
+      <Header
+        style={{ padding: 0, height: 'auto', backgroundColor: 'transparent' }}
+      >
+        <AppHeader />
+      </Header>
+      <Content>
+        {children}
+        <FullScreenLoading />
+      </Content>
+      {/* <Footer>Footer</Footer> */}
+      <BottomNav />
+    </AntdLayout>
   )
 }

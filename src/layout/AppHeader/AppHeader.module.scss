@@ -1,0 +1,82 @@
+@use '/src/styles/variables' as *;
+@use '/src/styles/animations' as *;
+@use '/src/styles/utils' as *;
+
+.AppHeader {
+  font-family: 'Inter';
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  border-bottom: 1px solid $primaryColor;
+  @include cardsBackground();
+  width: 100%;
+
+  .logo {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    column-gap: 10px;
+    align-self: center;
+
+    svg {
+      grid-row: 1 / -1;
+      align-self: center;
+      color: $secondaryColor4;
+    }
+
+    p:first-of-type {
+      align-self: end;
+      font-family: serif;
+      font-size: 19px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+
+    p:nth-of-type(2) {
+      align-self: start;
+      margin-top: 2px;
+      font-size: 9px;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      color: $primaryColor2;
+      margin-bottom: 0;
+    }
+  }
+
+  .controles {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .racha {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: $primaryColor3;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #dfd4cd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #5c4c62;
+  }
+}
+
+// // desk mob xs sm md lg xl xxl
+// @include onlyIn(lg) {
+//   background-color: #f28181;
+// }
