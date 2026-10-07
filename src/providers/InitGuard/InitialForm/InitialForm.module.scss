@@ -1,0 +1,15 @@
+@use '/src/styles/variables' as *;
+@use '/src/styles/animations' as *;
+@use '/src/styles/utils' as *;
+
+.InitialForm {
+  @include darkBackgroundGradient();
+  min-height: 100vh;
+  color: white;
+  font-family: 'Inter';
+}
+
+// // desk mob xs sm md lg xl xxl
+// @include onlyIn(lg) {
+//   background-color: #f28181;
+// }

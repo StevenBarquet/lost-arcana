@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 // ---Components
 import { AntdProv } from './AntdProv/AntdProv'
 import { ScrollToTop } from './ScrollToTop/ScrollToTop'
+import { InitGuard } from './InitGuard/InitGuard'
 
 interface Props {
   children: ReactNode
@@ -17,7 +18,9 @@ export function GlobalProviders({ children }: Props) {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <AntdProv>{children}</AntdProv>
+      <AntdProv>
+        <InitGuard>{children}</InitGuard>
+      </AntdProv>
     </BrowserRouter>
   )
 }

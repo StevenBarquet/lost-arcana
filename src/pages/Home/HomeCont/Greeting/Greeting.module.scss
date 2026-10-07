@@ -1,0 +1,29 @@
+@use '/src/styles/variables' as *;
+@use '/src/styles/animations' as *;
+@use '/src/styles/utils' as *;
+
+.Greeting {
+  h1 {
+    @include titleColor();
+    font-size: 2.65rem;
+    line-height: 1;
+    letter-spacing: -0.05em;
+  }
+
+  .label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: $secondaryColor5;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    margin-top: 12px;
+    max-width: 28rem;
+    font-size: 14px;
+    line-height: 1.625;
+    color: $colorDark7;
+  }
+}

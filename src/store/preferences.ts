@@ -2,11 +2,17 @@ import { create, type StateCreator } from 'zustand'
 import { devtools, persist, type PersistOptions } from 'zustand/middleware'
 
 interface State {
-  theme: 'light' | 'dark'
+  name: string | null
+  lastName: string | null
+  initials: string | null
+  fullName: string | null
 }
 
 const initialState: State = {
-  theme: 'dark',
+  name: null,
+  lastName: null,
+  initials: null,
+  fullName: null,
 }
 
 export interface PreferencesStore extends State {

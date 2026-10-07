@@ -6,7 +6,7 @@ import { FullScreenLoading } from './FullScreenLoading/FullScreenLoading'
 import { AppHeader } from './AppHeader/AppHeader'
 import { BottomNav } from './BottomNav/BottomNav'
 
-const { Header, Footer, Content } = AntdLayout
+const { Header, Content } = AntdLayout
 
 interface Props {
   children: ReactNode
