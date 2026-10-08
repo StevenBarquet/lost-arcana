@@ -1,8 +1,14 @@
 export type IQuiz = {
   question: string
-  answer: string
-  options: string[]
-  quizType: 'multi-choice' | 'pool-select-from-coma-sep'
+  answer: string | null
+  answers?: string[]
+  options: string[] | null
+  quizType:
+    | 'multi-choice'
+    | 'pool-select-multiple'
+    | 'pool-select'
+    | 'pool-select-from-coma-sep'
+    | 'input-text'
 }
 
 export type IFacts = {
