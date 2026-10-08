@@ -4,6 +4,7 @@ import { type ReactElement } from 'react'
 import style from './AppHeader.module.scss'
 import { Icon } from '@iconify/react'
 import { DAYJS_ES } from 'src/appConfig/dayjs-es'
+import { usePreferencesStore } from 'src/store/preferences'
 
 /**
  * AppHeader Component:  Descripción del comportamiento...
@@ -11,6 +12,8 @@ import { DAYJS_ES } from 'src/appConfig/dayjs-es'
 export function AppHeader(): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
   const fechaHoy = DAYJS_ES().format('dddd, D [de] MMMM [de] YYYY')
+  const { initials, count } = usePreferencesStore()
+
   // -----------------------MAIN METHODS
   // -----------------------HELPERS
   // -----------------------RENDER
@@ -27,9 +30,9 @@ export function AppHeader(): ReactElement {
       <div className="controles">
         <div className="racha">
           <Icon icon="mdi:fire" width={18} />
-          <span>12 dias</span>
+          <span>{count} dias</span>
         </div>
-        <div className="avatar">AM</div>
+        <div className="avatar">{initials}</div>
       </div>
     </div>
   )

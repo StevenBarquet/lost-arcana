@@ -1,11 +1,16 @@
 import { create, type StateCreator } from 'zustand'
 import { devtools, persist, type PersistOptions } from 'zustand/middleware'
 
+type PracticeMode = 'reviews' | 'new-modules'
+
 interface State {
   name: string | null
   lastName: string | null
   initials: string | null
   fullName: string | null
+  count: number
+  lastCountDate?: Date
+  practiceMode: PracticeMode
 }
 
 const initialState: State = {
@@ -13,6 +18,8 @@ const initialState: State = {
   lastName: null,
   initials: null,
   fullName: null,
+  count: 0,
+  practiceMode: 'reviews',
 }
 
 export interface PreferencesStore extends State {
