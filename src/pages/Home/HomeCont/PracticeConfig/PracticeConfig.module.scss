@@ -3,66 +3,44 @@
 @use '/src/styles/utils' as *;
 
 .PracticeConfig {
-  display: flex;
-  gap: 10px;
   margin-top: 28px;
   font-family: 'Inter';
 
-  .mode-card {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 16px;
-    border: 1px solid transparent;
-    border-radius: 14px;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    background-color: rgba(255, 255, 255, 0.06);
+  .ant-tabs {
     color: $colorDark5;
+  }
 
-    &.active {
-      @include cardsBackground();
-      border-color: rgba(255, 255, 255, 0.15);
+  .ant-tabs-nav::before {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .ant-tabs-ink-bar {
+    background: linear-gradient(to right, $primaryColor5, $secondaryColor6);
+    height: 3px;
+    border-radius: 3px;
+  }
+
+  .ant-tabs-tab {
+    padding: 10px 0 14px;
+    margin: 0;
+    flex: 1;
+    justify-content: center;
+    transition: color 0.25s ease;
+
+    &:hover:not(.ant-tabs-tab-active) {
+      color: $colorDark3;
+    }
+
+    &.ant-tabs-tab-active {
       color: white;
     }
-
-    &:hover:not(.active) {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
   }
 
-  .icon-circle {
-    display: flex;
+  .tab-label {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    background-color: rgba(255, 255, 255, 0.08);
-    color: $primaryColor4;
-  }
-
-  .mode-card.active .icon-circle {
-    background-color: rgba($primaryColor, 0.2);
-    color: $primaryColor3;
-  }
-
-  .text {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    gap: 2px;
-
-    strong {
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    small {
-      font-size: 11px;
-      opacity: 0.6;
-    }
+    gap: 8px;
+    font-size: 13.5px;
+    font-weight: 600;
   }
 }

@@ -1,5 +1,6 @@
 // ---Dependencies
 import { type ReactElement } from 'react'
+import { Tabs } from 'antd'
 import { Icon } from '@iconify/react'
 // ---Config
 import { usePreferencesStore } from 'src/store/preferences'
@@ -10,16 +11,24 @@ const MODES = [
   {
     key: 'reviews' as const,
     icon: 'solar:book-bold',
-    title: 'Repasos pendientes',
-    subtitle: '12 cartas listas hoy',
+    title: 'Repasos',
   },
   {
     key: 'new-modules' as const,
     icon: 'solar:stars-minimalistic-bold',
     title: 'Módulos nuevos',
-    subtitle: 'Descubre algo distinto',
   },
 ]
+
+const TAB_ITEMS = MODES.map((mode) => ({
+  key: mode.key,
+  label: (
+    <span className="tab-label">
+      <Icon icon={mode.icon} width={17} />
+      {mode.title}
+    </span>
+  ),
+}))
 
 export function PracticeConfig(): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
@@ -31,21 +40,12 @@ export function PracticeConfig(): ReactElement {
   // -----------------------RENDER
   return (
     <div className={style['PracticeConfig']}>
-      {MODES.map((mode) => (
-        <button
-          key={mode.key}
-          className={`mode-card ${practiceMode === mode.key ? 'active' : ''}`}
-          onClick={() => update({ practiceMode: mode.key })}
-        >
-          <span className="icon-circle">
-            <Icon icon={mode.icon} width={20} />
-          </span>
-          <div className="text">
-            <strong>{mode.title}</strong>
-            <small>{mode.subtitle}</small>
-          </div>
-        </button>
-      ))}
+      <Tabs
+        activeKey={practiceMode}
+        onChange={(key) => update({ practiceMode: key as typeof practiceMode })}
+        items={TAB_ITEMS}
+        centered
+      />
     </div>
   )
 }
