@@ -10,7 +10,7 @@ const elementOptions = [
   elementos.earth,
 ]
 
-export const SUITS_MODULE: ILeitnerModule = {
+export const SUITS_MODULE: ILeitnerModule<'suits'> = {
   metadata: {
     title: 'Palos',
     icon: 'material-symbols-light:cards-star',

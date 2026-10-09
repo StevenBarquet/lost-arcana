@@ -3,7 +3,7 @@ import { ILeitnerModule } from './types'
 
 const { principios, traits } = RESPUESTAS_COMUNES
 
-export const ELEMENTS_MODULE: ILeitnerModule = {
+export const ELEMENTS_MODULE: ILeitnerModule<'elements'> = {
   metadata: {
     title: 'Elementos',
     icon: 'solar:fire-bold-duotone',

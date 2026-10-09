@@ -10,7 +10,7 @@ const elementOptions = [
   elementos.earth,
 ]
 
-export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
+export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
   metadata: {
     title: 'Arcanos Mayores',
     icon: 'boxicons:book-library-filled',
@@ -20,7 +20,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
     // 0 — Air, Yang
     {
       moduleType: 'major-arcana',
-      key: 'fool',
+      key: '00',
       title: 'El Loco / The Fool',
       hint: 'El arcano El Loco representa ...',
       quiz: [
@@ -47,7 +47,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
     // 1 — Earth, Yang
     {
       moduleType: 'major-arcana',
-      key: 'magician',
+      key: '01',
       title: 'El Mago / The Magician',
       hint: 'El arcano El Mago representa ...',
       quiz: [
@@ -74,7 +74,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
     // 2 — Water, Yin
     {
       moduleType: 'major-arcana',
-      key: 'high-priestess',
+      key: '02',
       title: 'La Sacerdotisa / The High Priestess',
       hint: 'El arcano La Sacerdotisa representa ...',
       quiz: [
@@ -101,7 +101,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
     // 3 — Earth, Yang
     {
       moduleType: 'major-arcana',
-      key: 'empress',
+      key: '03',
       title: 'La Emperatriz / The Empress',
       hint: 'El arcano La Emperatriz representa ...',
       quiz: [
@@ -128,7 +128,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
     // 4 — Fire, Yang
     {
       moduleType: 'major-arcana',
-      key: 'emperor',
+      key: '04',
       title: 'El Emperador / The Emperor',
       hint: 'El arcano El Emperador representa ...',
       quiz: [
@@ -155,7 +155,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
     // 5 — Earth, Yang
     {
       moduleType: 'major-arcana',
-      key: 'hierophant',
+      key: '05',
       title: 'El Sumo Sacerdote / The Hierophant',
       hint: 'El arcano sumo sacerdote representa ...',
       quiz: [
@@ -182,7 +182,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
     // 6 — Air, Yang
     {
       moduleType: 'major-arcana',
-      key: 'lovers',
+      key: '06',
       title: 'Los Enamorados / The Lovers',
       hint: 'El arcano Los Enamorados representa ...',
       quiz: [
@@ -209,7 +209,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
     // 7 — Water, Yin
     {
       moduleType: 'major-arcana',
-      key: 'chariot',
+      key: '07',
       title: 'El Carro / The Chariot',
       hint: 'El arcano El Carro representa ...',
       quiz: [
@@ -236,7 +236,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
     // 8 — Fire, Yang
     {
       moduleType: 'major-arcana',
-      key: 'strength',
+      key: '08',
       title: 'La Fuerza / Strength',
       hint: 'El arcano La Fuerza representa ...',
       quiz: [
@@ -263,7 +263,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
     // 9 — Earth, Yang
     {
       moduleType: 'major-arcana',
-      key: 'hermit',
+      key: '09',
       title: 'El Ermitaño / The Hermit',
       hint: 'El arcano El Ermitaño representa ...',
       quiz: [
@@ -290,7 +290,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
     // 10 — Fire, Yang
     {
       moduleType: 'major-arcana',
-      key: 'wheel-of-fortune',
+      key: '10',
       title: 'La Rueda de la Fortuna / Wheel of Fortune',
       hint: 'El arcano La Rueda de la Fortuna representa ...',
       quiz: [
@@ -317,7 +317,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
     // 11 — Air, Yang
     {
       moduleType: 'major-arcana',
-      key: 'justice',
+      key: '11',
       title: 'La Justicia / Justice',
       hint: 'El arcano La Justicia representa ...',
       quiz: [
@@ -344,7 +344,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
     // 12 — Water, Yin
     {
       moduleType: 'major-arcana',
-      key: 'hanged-man',
+      key: '12',
       title: 'El Colgado / The Hanged Man',
       hint: 'El arcano El Colgado representa ...',
       quiz: [
@@ -371,7 +371,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
     // 13 — Water, Yin
     {
       moduleType: 'major-arcana',
-      key: 'death',
+      key: '13',
       title: 'La Muerte / Death',
       hint: 'El arcano La Muerte representa ...',
       quiz: [
@@ -398,7 +398,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
     // 14 — Fire, Yang
     {
       moduleType: 'major-arcana',
-      key: 'temperance',
+      key: '14',
       title: 'La Templanza / Temperance',
       hint: 'El arcano La Templanza representa ...',
       quiz: [
@@ -425,7 +425,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
     // 15 — Earth, Yang
     {
       moduleType: 'major-arcana',
-      key: 'devil',
+      key: '15',
       title: 'El Diablo / The Devil',
       hint: 'El arcano El Diablo representa ...',
       quiz: [
@@ -452,7 +452,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
     // 16 — Fire, Yang
     {
       moduleType: 'major-arcana',
-      key: 'tower',
+      key: '16',
       title: 'La Torre / The Tower',
       hint: 'El arcano La Torre representa ...',
       quiz: [
@@ -479,7 +479,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
     // 17 — Air, Yang
     {
       moduleType: 'major-arcana',
-      key: 'star',
+      key: '17',
       title: 'La Estrella / The Star',
       hint: 'El arcano La Estrella representa ...',
       quiz: [
@@ -506,7 +506,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
     // 18 — Water, Yin
     {
       moduleType: 'major-arcana',
-      key: 'moon',
+      key: '18',
       title: 'La Luna / The Moon',
       hint: 'El arcano La Luna representa ...',
       quiz: [
@@ -533,7 +533,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
     // 19 — Fire, Yang
     {
       moduleType: 'major-arcana',
-      key: 'sun',
+      key: '19',
       title: 'El Sol / The Sun',
       hint: 'El arcano El Sol representa ...',
       quiz: [
@@ -560,7 +560,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
     // 20 — Fire, Yang & Water, Yin
     {
       moduleType: 'major-arcana',
-      key: 'Judgement',
+      key: '20',
       title: 'El Juicio / The Judgement',
       hint: 'El arcano El Juicio representa ...',
       quiz: [
@@ -589,7 +589,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
     // 21 — Earth, Yang
     {
       moduleType: 'major-arcana',
-      key: 'world',
+      key: '21',
       title: 'El Mundo / The World',
       hint: 'El arcano El Mundo representa ...',
       quiz: [

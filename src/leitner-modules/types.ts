@@ -11,18 +11,18 @@ export type IQuiz = {
     | 'input-text'
 }
 
-export type IFacts = {
-  moduleType: string
+export type IFacts<moduleType extends string> = {
+  moduleType: moduleType
   key: string
   title: string
   hint: string
   quiz: IQuiz[]
 }
-export type ILeitnerModule = {
+export type ILeitnerModule<moduleType extends string> = {
   metadata: {
     title: string
     icon: string
-    key: string
+    key: moduleType
   }
-  facts: IFacts[]
+  facts: IFacts<moduleType>[]
 }

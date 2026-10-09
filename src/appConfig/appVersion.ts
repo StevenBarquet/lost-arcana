@@ -1,8 +1,8 @@
-export const commitID = `31cfe7e75319c7b1f65eb071ad5a323cad744d7a`;
+export const commitID = `e162fdb872ef3e766f457c7bbe25a5604035e9f1`;
     
-  export const commitMssg = `ajuste de quiz logic`;
+  export const commitMssg = `imagenes acomodadas en public y tipos mejorados para modulos leitner`;
   
-  export const commitDate = `Thu Oct 08 2026 18:22:51 GMT-0600 (Central Standard Time)`;
+  export const commitDate = `Fri Oct 09 2026 10:44:57 GMT-0600 (Central Standard Time)`;
   
   export const commitAuthor = `Steven Barquet`;
   
