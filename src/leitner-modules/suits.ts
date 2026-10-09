@@ -13,6 +13,8 @@ const elementOptions = [
 export const SUITS_MODULE: ILeitnerModule = {
   metadata: {
     title: 'Palos',
+    icon: 'material-symbols-light:cards-star',
+    key: 'suits',
   },
   facts: [
     {

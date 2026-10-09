@@ -21,6 +21,8 @@ export type IFacts = {
 export type ILeitnerModule = {
   metadata: {
     title: string
+    icon: string
+    key: string
   }
   facts: IFacts[]
 }

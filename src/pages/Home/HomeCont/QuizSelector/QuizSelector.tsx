@@ -18,12 +18,6 @@ type ModuleOption = {
   factsCount: number
 }
 
-const MODULE_ICONS: Record<string, string> = {
-  Elementos: 'solar:fire-bold-duotone',
-  'Arcanos Mayores': 'solar:star-bold-duotone',
-  Palos: 'solar:crown-bold-duotone',
-}
-
 const ALL_MODULES_OPTION: ModuleOption = {
   key: 'all',
   title: 'Todos los módulos',
@@ -32,9 +26,9 @@ const ALL_MODULES_OPTION: ModuleOption = {
 }
 
 const moduleOptions: ModuleOption[] = allModules.map((m) => ({
-  key: m.metadata.title,
+  key: m.metadata.key,
   title: m.metadata.title,
-  icon: MODULE_ICONS[m.metadata.title] ?? 'solar:notebook-bold-duotone',
+  icon: m.metadata.icon,
   factsCount: m.facts.length,
 }))
 
@@ -42,7 +36,9 @@ export function QuizSelector(): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
   const practiceMode = usePreferencesStore((s) => s.practiceMode)
   const drawer = useBoolean()
-  const [selectedModule, setSelectedModule] = useState<ModuleOption | null>(null)
+  const [selectedModule, setSelectedModule] = useState<ModuleOption | null>(
+    null,
+  )
 
   const options =
     practiceMode === 'reviews'
@@ -88,7 +84,7 @@ export function QuizSelector(): ReactElement {
       <Drawer
         title={selectedModule?.title ?? ''}
         placement="bottom"
-        height="85vh"
+        height="90vh"
         open={drawer.value}
         onClose={drawer.setFalse}
         className={style['ModuleDrawer']}

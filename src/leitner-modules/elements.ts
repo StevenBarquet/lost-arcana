@@ -6,6 +6,8 @@ const { principios, traits } = RESPUESTAS_COMUNES
 export const ELEMENTS_MODULE: ILeitnerModule = {
   metadata: {
     title: 'Elementos',
+    icon: 'solar:fire-bold-duotone',
+    key: 'elements',
   },
   facts: [
     {

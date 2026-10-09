@@ -5,6 +5,6 @@ import { ILeitnerModule } from './types'
 
 export const allModules: ILeitnerModule[] = [
   ELEMENTS_MODULE,
-  MAJOR_ARCANA_MODULE,
+  // MAJOR_ARCANA_MODULE,
   SUITS_MODULE,
 ]

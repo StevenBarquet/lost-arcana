@@ -13,6 +13,8 @@ const elementOptions = [
 export const MAJOR_ARCANA_MODULE: ILeitnerModule = {
   metadata: {
     title: 'Arcanos Mayores',
+    icon: 'boxicons:book-library-filled',
+    key: 'major-arcana',
   },
   facts: [
     // 0 — Air, Yang
