@@ -5,10 +5,10 @@ export type IQuiz = {
   options: string[] | null
   quizType:
     | 'multi-choice'
-    | 'pool-select-multiple'
-    | 'pool-select'
-    | 'pool-select-from-coma-sep'
     | 'input-text'
+    | 'pool-select'
+    | 'pool-select-multiple'
+    | 'pool-select-multiple-from-coma-sep'
 }
 
 export type IFacts<moduleType extends string> = {

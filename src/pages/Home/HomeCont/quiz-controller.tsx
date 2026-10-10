@@ -8,6 +8,7 @@ import { useLeitnerStore } from 'src/store/leitner'
 import { allModules, type AllModuleTypes } from 'src/leitner-modules'
 import type { IFacts } from 'src/leitner-modules/types'
 import { needReview } from 'src/leitner-modules/algoritmo'
+import { shuffle } from 'src/utils/functions/logicUtils'
 
 type ModuleOption = {
   key: string
@@ -70,19 +71,21 @@ export const useQuizCtrl = () => {
   // -----------------------HELPERS
   function factsForMode(moduleFacts: IFacts<AllModuleTypes>[]) {
     if (practiceMode === 'reviews') {
-      return moduleFacts.filter((f) => {
+      const filteredFacts = moduleFacts.filter((f) => {
         const stored = reviewedFacts.find(
           (rf) => rf.moduleType === f.moduleType && rf.key === f.key,
         )
         return stored && needReview(stored)
       })
+      return shuffle(filteredFacts)
     }
-    return moduleFacts.filter(
+    const filteredFacts = moduleFacts.filter(
       (f) =>
         !reviewedFacts.some(
           (rf) => rf.moduleType === f.moduleType && rf.key === f.key,
         ),
     )
+    return shuffle(filteredFacts)
   }
   return {
     practiceMode,

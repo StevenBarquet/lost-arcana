@@ -10,6 +10,6 @@ export type AllModuleTypes =
 
 export const allModules: ILeitnerModule<AllModuleTypes>[] = [
   ELEMENTS_MODULE,
-  // MAJOR_ARCANA_MODULE,
+  MAJOR_ARCANA_MODULE,
   SUITS_MODULE,
 ]

@@ -1,0 +1,139 @@
+@use '/src/styles/variables' as *;
+@use '/src/styles/animations' as *;
+@use '/src/styles/utils' as *;
+
+.MultiChoice {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+
+  .question {
+    font-size: 16px;
+    font-weight: 500;
+    color: $colorDark3;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    @include cardsBackgroundLight();
+    color: $colorDark3;
+    font-size: 14px;
+    text-align: left;
+
+    &:hover:not(:disabled) {
+      @include cardsBackground();
+      border-color: rgba(255, 255, 255, 0.18);
+      color: white;
+      transform: translateX(4px);
+    }
+
+    &:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+
+    &:disabled {
+      cursor: default;
+    }
+  }
+
+  .option-letter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    font-weight: 700;
+    font-size: 13px;
+    background: linear-gradient(
+      135deg,
+      rgba($primaryColor, 0.2),
+      rgba($secondaryColor, 0.15)
+    );
+    color: $primaryColor3;
+    transition: all 0.3s ease;
+  }
+
+  .option-text {
+    flex: 1;
+    line-height: 1.4;
+  }
+
+  .option-icon {
+    flex-shrink: 0;
+    opacity: 0.3;
+    transition: all 0.3s ease;
+  }
+
+  .correct {
+    border-color: rgba($colorSuccess, 0.5);
+    background-color: rgba($colorSuccess, 0.12);
+    color: $colorSuccess;
+
+    .option-letter {
+      background: rgba($colorSuccess, 0.25);
+      color: $colorSuccess;
+    }
+
+    .option-icon {
+      opacity: 1;
+      color: $colorSuccess;
+    }
+  }
+
+  .incorrect {
+    border-color: rgba($colorError, 0.5);
+    background-color: rgba($colorError, 0.12);
+    color: $colorError;
+
+    .option-letter {
+      background: rgba($colorError, 0.25);
+      color: $colorError;
+    }
+
+    .option-icon {
+      opacity: 1;
+      color: $colorError;
+    }
+  }
+
+  .reveal {
+    border-color: rgba($colorSuccess, 0.35);
+    background-color: rgba($colorSuccess, 0.08);
+    color: $colorSuccess;
+
+    .option-letter {
+      background: rgba($colorSuccess, 0.2);
+      color: $colorSuccess;
+    }
+
+    .option-icon {
+      opacity: 0.7;
+      color: $colorSuccess;
+    }
+  }
+
+  .dimmed {
+    opacity: 0.35;
+  }
+}

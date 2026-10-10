@@ -1,0 +1,143 @@
+@use '/src/styles/variables' as *;
+@use '/src/styles/animations' as *;
+@use '/src/styles/utils' as *;
+
+.PoolSelect {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+
+  .question {
+    font-size: 16px;
+    font-weight: 500;
+    color: $colorDark3;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .search-wrapper {
+    position: relative;
+  }
+
+  .search-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    @include cardsBackgroundLight();
+    transition: all 0.3s ease;
+
+    &:focus-within {
+      border-color: rgba($primaryColor, 0.4);
+      @include cardsBackground();
+    }
+
+    input {
+      flex: 1;
+      padding: 14px 0;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: $colorDark2;
+      font-size: 15px;
+      font-family: inherit;
+
+      &::placeholder {
+        color: $colorDark11;
+      }
+
+      &:disabled {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  .search-icon {
+    flex-shrink: 0;
+    color: $colorDark10;
+  }
+
+  .result-icon {
+    flex-shrink: 0;
+  }
+
+  .icon-correct {
+    color: $colorSuccess;
+  }
+
+  .icon-incorrect {
+    color: $colorError;
+  }
+
+  .dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    @include cardsBackground();
+    overflow: hidden;
+    z-index: 10;
+    animation: sb-sent 0.15s ease;
+    list-style: none;
+    padding: 4px;
+    margin: 0;
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 11px 14px;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: $colorDark3;
+      font-size: 14px;
+      font-family: inherit;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.15s ease;
+
+      &:hover {
+        background: rgba($primaryColor, 0.15);
+        color: white;
+      }
+    }
+  }
+
+  .correct .search-input {
+    border-color: rgba($colorSuccess, 0.5);
+
+    input {
+      color: $colorSuccess;
+    }
+  }
+
+  .incorrect .search-input {
+    border-color: rgba($colorError, 0.5);
+
+    input {
+      color: $colorError;
+    }
+  }
+
+  .answer-reveal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: rgba($colorSuccess, 0.08);
+    border: 1px solid rgba($colorSuccess, 0.2);
+    color: $colorSuccess;
+    font-size: 14px;
+    font-weight: 500;
+    animation: sb-sent 0.3s ease;
+  }
+}
