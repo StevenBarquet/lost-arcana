@@ -9,7 +9,7 @@ import { useGetQuizCtrl } from '../quiz-controller'
 import style from './QuizSelector.module.scss'
 
 export function QuizSelector(): ReactElement {
-  const { options, handleSelect } = useGetQuizCtrl()
+  const { options, handleSelectModule } = useGetQuizCtrl()
   // -----------------------CONSTS, HOOKS, STATES
   // -----------------------MAIN METHODS
   // -----------------------HELPERS
@@ -24,13 +24,22 @@ export function QuizSelector(): ReactElement {
       <div className="module-list">
         {options.map((option, i) => (
           <ColoredLi key={option.key} index={i} className="module-card">
-            <button className="card-btn" onClick={() => handleSelect(option)}>
+            <button
+              // type="text"
+              className="card-btn"
+              disabled={option.factsCount === 0}
+              onClick={() => handleSelectModule(option)}
+            >
               <span className="card-icon">
                 <Icon icon={option.icon} width={24} />
               </span>
               <div className="card-text">
                 <strong>{option.title}</strong>
-                <small>{option.factsCount} cartas</small>
+                <small>
+                  {option.factsCount === 0
+                    ? 'Sin pendientes'
+                    : `${option.factsCount} ejercicios`}
+                </small>
               </div>
               <Icon
                 icon="solar:alt-arrow-right-linear"

@@ -26,3 +26,10 @@ export type ILeitnerModule<moduleType extends string> = {
   }
   facts: IFacts<moduleType>[]
 }
+
+export type IStoredFact = {
+  moduleType: string
+  key: string
+  box: number
+  date: Date
+}

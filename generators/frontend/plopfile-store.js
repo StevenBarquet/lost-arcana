@@ -16,15 +16,15 @@ module.exports = (plop) => {
       },
     ],
     actions: ({ persist }) => {
-      const storeType = persist ? 'persist' : '';
+      const storeType = persist ? 'persist' : ''
 
       const storeTemplate = {
         type: 'add',
-        path: '../../apps/frontend/src/store/{{camelCase name}}.ts',
+        path: '../../src/store/{{camelCase name}}.ts',
         templateFile: `store/${storeType}Store.ts.hbs`,
-      };
+      }
 
-      return [storeTemplate];
+      return [storeTemplate]
     },
-  });
-};
+  })
+}
