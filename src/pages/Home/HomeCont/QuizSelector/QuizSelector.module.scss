@@ -91,25 +91,3 @@
   }
 }
 
-.ModuleDrawer {
-  .drawer-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding-top: 48px;
-    gap: 16px;
-    color: $colorDark8;
-
-    h2 {
-      @include titleColor();
-      font-size: 26px;
-      font-weight: 700;
-    }
-
-    p {
-      opacity: 0.5;
-      font-size: 14px;
-    }
-  }
-}

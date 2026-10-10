@@ -3,7 +3,6 @@ import { type ReactElement } from 'react'
 // ---Styles
 import style from './AppHeader.module.scss'
 import { Icon } from '@iconify/react'
-import { DAYJS_ES } from 'src/appConfig/dayjs-es'
 import { usePreferencesStore } from 'src/store/preferences'
 
 /**
@@ -11,7 +10,7 @@ import { usePreferencesStore } from 'src/store/preferences'
  */
 export function AppHeader(): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
-  const fechaHoy = DAYJS_ES().format('dddd, D [de] MMMM [de] YYYY')
+  // const fechaHoy = DAYJS_ES().format('dddd, D [de] MMMM [de] YYYY')
   const { initials, count } = usePreferencesStore()
 
   // -----------------------MAIN METHODS

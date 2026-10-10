@@ -1,8 +1,8 @@
-export const commitID = `e162fdb872ef3e766f457c7bbe25a5604035e9f1`;
+export const commitID = `b8b334d2ec7e0a1d5ba52774f9f288bb2fe071b4`;
     
-  export const commitMssg = `imagenes acomodadas en public y tipos mejorados para modulos leitner`;
+  export const commitMssg = `Limpieza de controlador de quiz y config de pwa`;
   
-  export const commitDate = `Fri Oct 09 2026 10:44:57 GMT-0600 (Central Standard Time)`;
+  export const commitDate = `Fri Oct 09 2026 19:14:32 GMT-0600 (Central Standard Time)`;
   
   export const commitAuthor = `Steven Barquet`;
   
