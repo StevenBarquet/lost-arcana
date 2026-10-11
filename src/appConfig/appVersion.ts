@@ -1,8 +1,8 @@
-export const commitID = `c581e9d6f3933da35678aac4183b3ef4fd3dcaa5`;
+export const commitID = `bb644cf82a0327b08b31f66d7c9dd2350255844c`;
     
-  export const commitMssg = `config for cloudflare deployment added`;
+  export const commitMssg = `building assets removed from cloudflare config`;
   
-  export const commitDate = `Sun Oct 11 2026 06:30:18 GMT-0600 (Central Standard Time)`;
+  export const commitDate = `Sun Oct 11 2026 06:35:58 GMT-0600 (Central Standard Time)`;
   
   export const commitAuthor = `Steven Barquet`;
   

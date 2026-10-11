@@ -3,7 +3,6 @@
   "name": "lost-arcana",
   "compatibility_date": "2026-10-06",
   "assets": {
-    "binding": "ASSETS",
     "not_found_handling": "single-page-application"
   }
 }
