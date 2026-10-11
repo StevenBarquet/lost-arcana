@@ -4,6 +4,7 @@ import { type ReactElement } from 'react'
 import style from './AppHeader.module.scss'
 import { Icon } from '@iconify/react'
 import { usePreferencesStore } from 'src/store/preferences'
+import { useLeitnerStore } from 'src/store/leitner'
 
 /**
  * AppHeader Component:  Descripción del comportamiento...
@@ -11,8 +12,8 @@ import { usePreferencesStore } from 'src/store/preferences'
 export function AppHeader(): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
   // const fechaHoy = DAYJS_ES().format('dddd, D [de] MMMM [de] YYYY')
-  const { initials, count } = usePreferencesStore()
-
+  const initials = usePreferencesStore((s) => s.initials)
+  const streak = useLeitnerStore((e) => e.streak)
   // -----------------------MAIN METHODS
   // -----------------------HELPERS
   // -----------------------RENDER
@@ -29,7 +30,7 @@ export function AppHeader(): ReactElement {
       <div className="controles">
         <div className="racha">
           <Icon icon="mdi:fire" width={18} />
-          <span>{count} dias</span>
+          <span>{streak} dias</span>
         </div>
         <div className="avatar">{initials}</div>
       </div>

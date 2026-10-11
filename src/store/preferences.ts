@@ -8,8 +8,6 @@ interface State {
   lastName: string | null
   initials: string | null
   fullName: string | null
-  count: number
-  lastCountDate?: Date
   practiceMode: PracticeMode
 }
 
@@ -18,7 +16,6 @@ const initialState: State = {
   lastName: null,
   initials: null,
   fullName: null,
-  count: 0,
   practiceMode: 'reviews',
 }
 

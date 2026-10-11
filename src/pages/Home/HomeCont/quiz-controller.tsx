@@ -27,7 +27,7 @@ const PLACEHOLDER_MODULE: ModuleOption = {
 export const useQuizCtrl = () => {
   // -----------------------CONSTS, HOOKS, STATES
   const practiceMode = usePreferencesStore((s) => s.practiceMode)
-  const { reviewedFacts, update: updateFacts } = useLeitnerStore()
+  const { reviewedFacts, update: updateFacts, updateStreak } = useLeitnerStore()
   const drawerState = useBoolean()
   const [selectedModule, setSelectedModule] =
     useState<ModuleOption>(PLACEHOLDER_MODULE)
@@ -97,6 +97,7 @@ export const useQuizCtrl = () => {
     factUpsert(currentFact!, allCorrect)
     setCurrentFactIndex((i) => i + 1)
     setCurrentAnswers([])
+    updateStreak()
   }
 
   // -----------------------HELPERS
