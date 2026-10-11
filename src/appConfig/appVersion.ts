@@ -1,8 +1,8 @@
-export const commitID = `1cd4e389f967b898c167415d70fdd099272b4ffc`;
+export const commitID = `e6fdade4343f447662a4ecd2da55cd6f2377cc92`;
     
-  export const commitMssg = `racha arreglada`;
+  export const commitMssg = `componente compartido en home y biblioteca`;
   
-  export const commitDate = `Sun Oct 11 2026 16:22:03 GMT-0600 (Central Standard Time)`;
+  export const commitDate = `Sun Oct 11 2026 16:33:47 GMT-0600 (Central Standard Time)`;
   
   export const commitAuthor = `Steven Barquet`;
   

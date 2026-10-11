@@ -1,14 +1,14 @@
 // ---Dependencies
 import type { ReactElement } from 'react'
 // ---Components
-import { Greeting } from './Greeting/Greeting'
 import { HealthLink } from './HealthLink/HealthLink'
-import { PracticeConfig } from './PracticeConfig/PracticeConfig'
 import { QuizSelector } from './QuizSelector/QuizSelector'
 // ---Styles
 import style from './HomeCont.module.scss'
 import { QuizCtrlContext, useQuizCtrl } from './quiz-controller'
 import { Quiz } from './Quiz/Quiz'
+import { Greeting } from 'src/common/app/Greeting/Greeting'
+import { PracticeConfig } from 'src/common/app/PracticeConfig/PracticeConfig'
 
 export function HomeCont(): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES

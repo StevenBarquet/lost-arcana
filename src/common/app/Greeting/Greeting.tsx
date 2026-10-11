@@ -13,7 +13,13 @@ function getTimeGreeting(): string {
   return 'Buenas noches'
 }
 
-export function Greeting(): ReactElement {
+export function Greeting({
+  title,
+  subTitle,
+}: {
+  title?: string
+  subTitle?: string
+}): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
   const name = usePreferencesStore((s) => s.name)
   const [greeting, setGreeting] = useState(getTimeGreeting)
@@ -33,9 +39,9 @@ export function Greeting(): ReactElement {
       <p className="label">
         {greeting}, {name}
       </p>
-      <h1>Bienvenido de vuelta</h1>
+      <h1>{title || 'Bienvenido de vuelta'}</h1>
       <p className="subtitle">
-        Tu momento de tranquilidad y estudio ha llegado.
+        {subTitle || 'Tu momento de tranquilidad y estudio ha llegado.'}
       </p>
     </div>
   )

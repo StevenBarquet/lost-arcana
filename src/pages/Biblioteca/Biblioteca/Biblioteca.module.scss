@@ -8,6 +8,21 @@
   color: white;
   font-family: 'Inter';
   padding-bottom: 60px;
+
+  .centerContainer {
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    padding: 18px;
+  }
+
+  h2 {
+    font-size: 32px;
+    font-weight: 600;
+    span {
+      color: $primaryColor4;
+    }
+  }
 }
 
 // // desk mob xs sm md lg xl xxl
