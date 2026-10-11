@@ -39,10 +39,12 @@ export function PoolSelect({ quiz, onAnswer }: PoolSelectProps): ReactElement {
   }
 
   const handleSelectOption = (option: string) => {
+    const correct =
+      normalizeAnswer(option) === normalizeAnswer(quiz.answer ?? '')
     setSelected(option)
     setQuery(option)
     setDropdownOpen(false)
-    onAnswer(!isCorrect)
+    onAnswer(!correct)
   }
 
   const handleBlur = () => {

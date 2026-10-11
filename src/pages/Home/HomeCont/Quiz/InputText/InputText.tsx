@@ -23,8 +23,10 @@ export function InputText({ quiz, onAnswer }: InputTextProps): ReactElement {
   // -----------------------MAIN METHODS
   const handleSubmit = () => {
     if (!trimmed || answered) return
+    const correct =
+      normalizeAnswer(trimmed) === normalizeAnswer(quiz.answer ?? '')
     setAnswered(true)
-    onAnswer(!isCorrect)
+    onAnswer(!correct)
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {

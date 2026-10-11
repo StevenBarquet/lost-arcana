@@ -4,10 +4,10 @@ export const RESPUESTAS_COMUNES = {
     yin: 'Yin, femenino (pasivo)',
   },
   elementos: {
-    fire: 'Fuego',
-    air: 'Aire',
-    water: 'Agua',
-    earth: 'Tierra',
+    fire: 'Fuego - Fire',
+    air: 'Aire - Air',
+    water: 'Agua - Water',
+    earth: 'Tierra - Earth',
   },
   traits: {
     fire: 'Energía, Creatividad, Inovación, Pasión, Entusiasmo, Calor, Determinación, Vitalidad, Liderazgo',

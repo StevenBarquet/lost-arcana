@@ -1,8 +1,8 @@
-export const commitID = `2b54f4742aab18c9c177f130e0d0c539916c5b11`;
+export const commitID = `0116e25936ba134d51c3b3105eae22e617d7f49f`;
     
-  export const commitMssg = `limpieaza de estado al cerrar drawer`;
+  export const commitMssg = `Ejercicios funcionales`;
   
-  export const commitDate = `Sun Oct 11 2026 13:48:06 GMT-0600 (Central Standard Time)`;
+  export const commitDate = `Sun Oct 11 2026 15:54:24 GMT-0600 (Central Standard Time)`;
   
   export const commitAuthor = `Steven Barquet`;
   

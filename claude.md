@@ -345,6 +345,12 @@ export function MyFormComponent(): ReactElement {
 
 ---
 
+## Animaciones
+
+- **Usa framer-motion** para animaciones en componentes React.
+- Utilidades y presets en `src/utils/functions/motionUtils.ts` (`MOTION_FADE_IN`,
+  `MOTION_STAGGER`, `motionComps`, etc.). Úsalos antes de crear animaciones ad-hoc.
+
 ## Referente de buena estética
 Siempre que te pida que hagas algo estético, puedes revisar el folder src/pages/Home/HomeCont/QuizSelector y los archivos, '/src/styles/variables', '/src/styles/animations', '/src/styles/utils'
 

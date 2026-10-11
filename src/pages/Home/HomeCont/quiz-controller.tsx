@@ -6,7 +6,7 @@ import { useBoolean } from 'src/utils/hooks/useBoolean'
 import { usePreferencesStore } from 'src/store/preferences'
 import { useLeitnerStore } from 'src/store/leitner'
 import { allModules, type AllModuleTypes } from 'src/leitner-modules'
-import type { IFacts } from 'src/leitner-modules/types'
+import type { IFacts, IStoredFact } from 'src/leitner-modules/types'
 import { needReview } from 'src/leitner-modules/algoritmo'
 import { shuffle } from 'src/utils/functions/logicUtils'
 
@@ -27,15 +27,17 @@ const PLACEHOLDER_MODULE: ModuleOption = {
 export const useQuizCtrl = () => {
   // -----------------------CONSTS, HOOKS, STATES
   const practiceMode = usePreferencesStore((s) => s.practiceMode)
-  const { reviewedFacts } = useLeitnerStore()
+  const { reviewedFacts, update: updateFacts } = useLeitnerStore()
   const drawerState = useBoolean()
   const [selectedModule, setSelectedModule] =
     useState<ModuleOption>(PLACEHOLDER_MODULE)
-  const [selectedFacts, setSelectedFacts] = useState<IFacts<AllModuleTypes>[]>(
-    [],
-  )
+  const [selectedFacts, setSelectedFacts] = useState<IFacts<AllModuleTypes>[]>()
+  const [currentFactIndex, setCurrentFactIndex] = useState(0)
+  const currentFact = selectedFacts?.[currentFactIndex]
+
+  // True if mistaken
   const [currentAnswers, setCurrentAnswers] = useState<boolean[]>([])
-  const allAnswered = currentAnswers.length === selectedFacts[0]?.quiz.length
+  const allAnswered = currentAnswers.length === currentFact?.quiz.length
 
   const allFacts = allModules.flatMap((m) => m.facts)
 
@@ -75,7 +77,25 @@ export const useQuizCtrl = () => {
 
   const onClose = () => {
     drawerState.setFalse()
-    setSelectedFacts([])
+    setSelectedFacts(undefined)
+    setCurrentAnswers([])
+  }
+
+  const onSkip = () => {
+    if (!selectedFacts) return
+
+    setSelectedFacts((original) => {
+      if (!original) return undefined
+      if (original.length <= 1) return original // Evita procesar arrays vacíos o de un solo elemento
+
+      const [first, ...rest] = original
+      return [...rest, first]
+    })
+  }
+  const onNextFact = () => {
+    const allCorrect = !currentAnswers.find((e) => e)
+    factUpsert(currentFact!, allCorrect)
+    setCurrentFactIndex((i) => i + 1)
     setCurrentAnswers([])
   }
 
@@ -98,17 +118,42 @@ export const useQuizCtrl = () => {
     )
     return shuffle(filteredFacts)
   }
+  function factUpsert(fact: IFacts<AllModuleTypes>, allCorrect: boolean) {
+    const storedFact = reviewedFacts.find(
+      (e) => e.key === fact.key && e.moduleType === fact.moduleType,
+    )
+    const toStoreFact: IStoredFact = storedFact || {
+      box: allCorrect ? 1 : 0,
+      date: new Date(),
+      key: fact.key,
+      moduleType: fact.moduleType,
+    }
+
+    updateFacts({
+      reviewedFacts: [
+        toStoreFact,
+        ...reviewedFacts.filter(
+          (e) => !(e.moduleType === fact.moduleType && e.key === fact.key),
+        ),
+      ],
+    })
+  }
+  // -----------------------HOOK DATA
   return {
     practiceMode,
     drawerState,
     selectedModule,
     options,
     selectedFacts,
+    currentFact,
     allAnswered,
+    someAnswered: !!currentAnswers.length,
     currentAnswers,
     handleSelectModule,
     handleAnswer,
     onClose,
+    onSkip,
+    onNextFact,
   }
 }
 
