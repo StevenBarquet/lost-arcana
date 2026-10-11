@@ -1,3 +1,4 @@
+# Rename to wrangler.jsonc if deployed as workers
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "lost-arcana",

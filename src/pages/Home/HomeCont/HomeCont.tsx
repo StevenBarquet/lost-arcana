@@ -22,7 +22,7 @@ export function HomeCont(): ReactElement {
           <Greeting />
           <PracticeConfig />
           <QuizSelector />
-          <Quiz />
+          {quizCtrl.selectedFacts.length ? <Quiz /> : null}
         </div>
       </div>
     </QuizCtrlContext.Provider>
