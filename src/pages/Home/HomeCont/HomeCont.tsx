@@ -2,6 +2,7 @@
 import type { ReactElement } from 'react'
 // ---Components
 import { Greeting } from './Greeting/Greeting'
+import { HealthLink } from './HealthLink/HealthLink'
 import { PracticeConfig } from './PracticeConfig/PracticeConfig'
 import { QuizSelector } from './QuizSelector/QuizSelector'
 // ---Styles
@@ -23,6 +24,7 @@ export function HomeCont(): ReactElement {
           <PracticeConfig />
           <QuizSelector />
           {quizCtrl.selectedFacts?.length ? <Quiz /> : null}
+          <HealthLink />
         </div>
       </div>
     </QuizCtrlContext.Provider>
