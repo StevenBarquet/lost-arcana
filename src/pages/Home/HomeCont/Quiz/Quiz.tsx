@@ -19,6 +19,7 @@ export function Quiz(): ReactElement {
     selectedFacts,
     allAnswered,
     handleAnswer,
+    onClose,
   } = useGetQuizCtrl()
   // -----------------------CONSTS, HOOKS, STATES
   const nextFact = selectedFacts[0]
@@ -32,7 +33,7 @@ export function Quiz(): ReactElement {
       placement="bottom"
       height="90vh"
       open={drawerState.value}
-      onClose={drawerState.setFalse}
+      onClose={onClose}
       className={style['Quiz']}
       destroyOnHidden
     >

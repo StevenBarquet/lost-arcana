@@ -35,7 +35,7 @@ export const useQuizCtrl = () => {
     [],
   )
   const [currentAnswers, setCurrentAnswers] = useState<boolean[]>([])
-  const allAnswered = currentAnswers.length === selectedFacts[0].quiz.length
+  const allAnswered = currentAnswers.length === selectedFacts[0]?.quiz.length
 
   const allFacts = allModules.flatMap((m) => m.facts)
 
@@ -73,6 +73,12 @@ export const useQuizCtrl = () => {
   const handleAnswer = (isMistake: boolean) =>
     setCurrentAnswers((c) => [...c, isMistake])
 
+  const onClose = () => {
+    drawerState.setFalse()
+    setSelectedFacts([])
+    setCurrentAnswers([])
+  }
+
   // -----------------------HELPERS
   function factsForMode(moduleFacts: IFacts<AllModuleTypes>[]) {
     if (practiceMode === 'reviews') {
@@ -99,8 +105,10 @@ export const useQuizCtrl = () => {
     options,
     selectedFacts,
     allAnswered,
+    currentAnswers,
     handleSelectModule,
     handleAnswer,
+    onClose,
   }
 }
 
