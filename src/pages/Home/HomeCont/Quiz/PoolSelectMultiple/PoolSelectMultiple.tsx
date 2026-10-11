@@ -15,7 +15,7 @@ const MIN_CHARS = 3
 
 type PoolSelectMultipleProps = {
   quiz: IQuiz
-  onAnswer: (selectedAnswers: string[]) => void
+  onAnswer: (isMistake: boolean) => void
 }
 
 export function PoolSelectMultiple({
@@ -66,7 +66,13 @@ export function PoolSelectMultiple({
   const handleSubmit = () => {
     if (selected.length === 0 || submitted) return
     setSubmitted(true)
-    onAnswer(selected)
+    const answers = quiz.answers ?? []
+    const allCorrect =
+      selected.length === answers.length &&
+      answers.every((a) =>
+        selected.some((s) => normalizeAnswer(s) === normalizeAnswer(a)),
+      )
+    onAnswer(!allCorrect)
   }
 
   const handleBlur = () => {
@@ -83,8 +89,7 @@ export function PoolSelectMultiple({
 
   const missedAnswers = submitted
     ? (quiz.answers ?? []).filter(
-        (a) =>
-          !selected.some((s) => normalizeAnswer(s) === normalizeAnswer(a)),
+        (a) => !selected.some((s) => normalizeAnswer(s) === normalizeAnswer(a)),
       )
     : []
   // -----------------------RENDER
@@ -149,9 +154,7 @@ export function PoolSelectMultiple({
               }
               value={query}
               onChange={handleInputChange}
-              onFocus={() =>
-                query.length >= MIN_CHARS && setDropdownOpen(true)
-              }
+              onFocus={() => query.length >= MIN_CHARS && setDropdownOpen(true)}
               onBlur={handleBlur}
               disabled={isFull}
             />
@@ -172,7 +175,11 @@ export function PoolSelectMultiple({
       )}
 
       {!submitted && selected.length > 0 && (
-        <button className="confirm-btn" onClick={handleSubmit}>
+        <button
+          disabled={selected.length !== expectedCount}
+          className="confirm-btn"
+          onClick={handleSubmit}
+        >
           <Icon icon="solar:check-read-bold-duotone" width={20} />
           <span>Confirmar selección</span>
         </button>
@@ -181,9 +188,7 @@ export function PoolSelectMultiple({
       {submitted && missedAnswers.length > 0 && (
         <div className="answer-reveal">
           <Icon icon="solar:lightbulb-bolt-bold-duotone" width={18} />
-          <span>
-            Faltó: {missedAnswers.join(', ')}
-          </span>
+          <span>Faltó: {missedAnswers.join(', ')}</span>
         </div>
       )}
     </div>

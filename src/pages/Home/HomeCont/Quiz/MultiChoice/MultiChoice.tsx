@@ -9,10 +9,13 @@ import style from './MultiChoice.module.scss'
 
 type MultiChoiceProps = {
   quiz: IQuiz
-  onAnswer: (selectedAnswer: string) => void
+  onAnswer: (isMistake: boolean) => void
 }
 
-export function MultiChoice({ quiz, onAnswer }: MultiChoiceProps): ReactElement {
+export function MultiChoice({
+  quiz,
+  onAnswer,
+}: MultiChoiceProps): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
   const [shuffledOptions] = useState(() => shuffle(quiz.options ?? []))
   const [selected, setSelected] = useState<string | null>(null)
@@ -23,7 +26,7 @@ export function MultiChoice({ quiz, onAnswer }: MultiChoiceProps): ReactElement 
   const handleSelect = (option: string) => {
     if (answered) return
     setSelected(option)
-    onAnswer(option)
+    onAnswer(!isCorrect(option))
   }
   // -----------------------HELPERS
   const getOptionStatus = (option: string) => {
@@ -36,8 +39,10 @@ export function MultiChoice({ quiz, onAnswer }: MultiChoiceProps): ReactElement 
 
   const getOptionIcon = (option: string) => {
     if (!answered) return 'solar:round-alt-arrow-right-bold-duotone'
-    if (option === selected && isCorrect(option)) return 'solar:check-circle-bold-duotone'
-    if (option === selected && !isCorrect(option)) return 'solar:close-circle-bold-duotone'
+    if (option === selected && isCorrect(option))
+      return 'solar:check-circle-bold-duotone'
+    if (option === selected && !isCorrect(option))
+      return 'solar:close-circle-bold-duotone'
     if (isCorrect(option)) return 'solar:check-circle-bold-duotone'
     return 'solar:minus-circle-bold-duotone'
   }

@@ -124,7 +124,8 @@
       }
 
       &:disabled {
-        opacity: 0.5;
+        opacity: 0.3;
+        cursor: not-allowed;
       }
     }
   }
@@ -204,6 +205,11 @@
 
     &:active {
       transform: scale(0.98);
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
     }
   }
 

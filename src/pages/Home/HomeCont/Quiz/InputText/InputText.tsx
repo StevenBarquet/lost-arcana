@@ -9,7 +9,7 @@ import style from './InputText.module.scss'
 
 type InputTextProps = {
   quiz: IQuiz
-  onAnswer: (selectedAnswer: string) => void
+  onAnswer: (isMistake: boolean) => void
 }
 
 export function InputText({ quiz, onAnswer }: InputTextProps): ReactElement {
@@ -24,7 +24,7 @@ export function InputText({ quiz, onAnswer }: InputTextProps): ReactElement {
   const handleSubmit = () => {
     if (!trimmed || answered) return
     setAnswered(true)
-    onAnswer(trimmed)
+    onAnswer(!isCorrect)
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {

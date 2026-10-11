@@ -3,7 +3,10 @@ import { type ReactElement, useState, useRef } from 'react'
 import { Icon } from '@iconify/react'
 // ---Config
 import type { IQuiz } from 'src/leitner-modules/types'
-import { filterByRelevance, normalizeAnswer } from 'src/utils/functions/logicUtils'
+import {
+  filterByRelevance,
+  normalizeAnswer,
+} from 'src/utils/functions/logicUtils'
 // ---Styles
 import style from './PoolSelect.module.scss'
 
@@ -11,7 +14,7 @@ const MIN_CHARS = 3
 
 type PoolSelectProps = {
   quiz: IQuiz
-  onAnswer: (selectedAnswer: string) => void
+  onAnswer: (isMistake: boolean) => void
 }
 
 export function PoolSelect({ quiz, onAnswer }: PoolSelectProps): ReactElement {
@@ -23,8 +26,10 @@ export function PoolSelect({ quiz, onAnswer }: PoolSelectProps): ReactElement {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const answered = selected !== null
-  const isCorrect = answered && normalizeAnswer(selected) === normalizeAnswer(quiz.answer ?? '')
-  const filtered = query.length >= MIN_CHARS ? filterByRelevance(query, options) : []
+  const isCorrect =
+    answered && normalizeAnswer(selected) === normalizeAnswer(quiz.answer ?? '')
+  const filtered =
+    query.length >= MIN_CHARS ? filterByRelevance(query, options) : []
   const showDropdown = dropdownOpen && filtered.length > 0 && !answered
   // -----------------------MAIN METHODS
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,7 +42,7 @@ export function PoolSelect({ quiz, onAnswer }: PoolSelectProps): ReactElement {
     setSelected(option)
     setQuery(option)
     setDropdownOpen(false)
-    onAnswer(option)
+    onAnswer(!isCorrect)
   }
 
   const handleBlur = () => {
@@ -49,9 +54,15 @@ export function PoolSelect({ quiz, onAnswer }: PoolSelectProps): ReactElement {
     <div className={style['PoolSelect']}>
       <p className="question">{quiz.question}</p>
 
-      <div className={`search-wrapper ${answered ? (isCorrect ? 'correct' : 'incorrect') : ''}`}>
+      <div
+        className={`search-wrapper ${answered ? (isCorrect ? 'correct' : 'incorrect') : ''}`}
+      >
         <div className="search-input">
-          <Icon icon="solar:magnifer-linear" width={18} className="search-icon" />
+          <Icon
+            icon="solar:magnifer-linear"
+            width={18}
+            className="search-icon"
+          />
           <input
             ref={inputRef}
             type="text"
@@ -64,7 +75,11 @@ export function PoolSelect({ quiz, onAnswer }: PoolSelectProps): ReactElement {
           />
           {answered && (
             <Icon
-              icon={isCorrect ? 'solar:check-circle-bold-duotone' : 'solar:close-circle-bold-duotone'}
+              icon={
+                isCorrect
+                  ? 'solar:check-circle-bold-duotone'
+                  : 'solar:close-circle-bold-duotone'
+              }
               width={20}
               className={`result-icon ${isCorrect ? 'icon-correct' : 'icon-incorrect'}`}
             />
