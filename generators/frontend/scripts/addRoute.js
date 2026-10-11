@@ -1,21 +1,22 @@
 const fs = require('fs');
 const path = require('path');
 
-const FILE_PATH = path.join(__dirname, '../../../apps/frontend/src/Router');
+const FILE_PATH = path.join(__dirname, '../../../src/Router');
 
 /** Inserta el import y la <Route> de una nueva page en el módulo de rutas.
  * Por defecto (sin agrupación) escribe en AppRoutes.tsx. Si adoptas agrupación
  * de pages, pasa `containerType` para apuntar a `${containerType}Routes.tsx`.
  * @param {{route: string, component: string, path: string, containerType?: "Admin" | "Landing" | "User" | "Auth" }} params */
-async function addRoute({route, path, containerType}) {
+async function addRoute({route, path}) {
   try {
     // Leer el archivo existente
-    const routerFile = containerType ? `${containerType}Routes` : 'AppRoutes'
+    // const routerFile = containerType ? `${containerType}Routes` : 'AppRoutes'
+    const routerFile = 'AppRoutes'
     const routerPath = `${FILE_PATH}/${routerFile}.tsx`
     let fileContent = fs.readFileSync(routerPath, 'utf-8');
     
     // Buscar la posición para insertar el nuevo componente importado (antes de 'Page404')
-    const insertImportIndex = fileContent.lastIndexOf("import Page404 from 'src/pages/Page404/Page404';");
+    const insertImportIndex = fileContent.lastIndexOf("import Page404 from 'src/pages/Page404/Page404'");
     if (insertImportIndex === -1) {
       console.error('No se pudo encontrar la posición adecuada para insertar el nuevo componente importado.');
       return;

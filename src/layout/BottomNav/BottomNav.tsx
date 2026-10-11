@@ -1,30 +1,28 @@
 // ---Dependencies
-import { useState, type ReactElement } from 'react'
+import type { ReactElement } from 'react'
+import { NavLink } from 'react-router-dom'
 // ---Styles
 import style from './BottomNav.module.scss'
 
 const TABS = [
-  { clave: 'practica', etiqueta: 'Practicar' },
+  { clave: '', etiqueta: 'Practicar' },
   { clave: 'biblioteca', etiqueta: 'Biblioteca' },
   { clave: 'progreso', etiqueta: 'Progreso' },
 ] as const
 
 export function BottomNav(): ReactElement {
-  // -----------------------CONSTS, HOOKS, STATES
-  const [activo, setActivo] = useState<string>('practica')
-
   // -----------------------RENDER
   return (
     <nav className={style.BottomNav}>
       {TABS.map((tab) => (
-        <a
+        <NavLink
           key={tab.clave}
-          href={`#${tab.clave}`}
-          className={activo === tab.clave ? 'enlace activo' : 'enlace'}
-          onClick={() => setActivo(tab.clave)}
+          to={`/${tab.clave}`}
+          end
+          className={({ isActive }) => (isActive ? 'enlace activo' : 'enlace')}
         >
           {tab.etiqueta}
-        </a>
+        </NavLink>
       ))}
     </nav>
   )

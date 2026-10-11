@@ -58,7 +58,7 @@ module.exports = (plop) => {
       // }[containerType]
 
       // Variante simple (default del template): pages planas
-      const path = '../../apps/frontend/src/pages'
+      const path = '../../src/pages'
 
       const pageTemplate = {
         type: 'add',

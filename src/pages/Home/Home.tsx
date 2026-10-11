@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 // ---Dependencies
 import type { ReactElement } from 'react'
 import { Helmet } from 'react-helmet'
@@ -14,12 +13,9 @@ export default function Home(): ReactElement {
   return (
     <>
       <Helmet>
-        <title>Monorepo Template 2026</title>
+        <title>Lost Arcana</title>
         <meta name="robots" content="index,follow" />
-        <meta
-          name="description"
-          content="Template base monorepo — Vite + React + tRPC"
-        />
+        <meta name="description" content="Lost Arcana | El ritual de estudio" />
       </Helmet>
       <HomeCont />
     </>

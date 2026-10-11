@@ -3,6 +3,7 @@ import { create, type StateCreator } from 'zustand'
 import { devtools, persist, type PersistOptions } from 'zustand/middleware'
 
 interface State {
+  lastUpdate?: Date
   reviewedFacts: IStoredFact[]
 }
 
