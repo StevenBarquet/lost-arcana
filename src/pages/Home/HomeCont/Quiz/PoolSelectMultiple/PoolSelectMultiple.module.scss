@@ -5,7 +5,7 @@
 .PoolSelectMultiple {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 5px;
   width: 100%;
   max-width: 520px;
   margin: 0 auto;
@@ -32,7 +32,7 @@
   .selected-pool {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 4px;
     justify-content: center;
   }
 
