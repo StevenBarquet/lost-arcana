@@ -3,6 +3,7 @@
 - SIEMPRE responde en español. Nunca uses inglés en tus respuestas al usuario.
 
 # Project Rules
+La app es full mobile, y debe ser diseñada con ese viewport solamente
 
 ## Git Policy
 

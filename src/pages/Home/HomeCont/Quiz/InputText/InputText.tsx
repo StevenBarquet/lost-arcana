@@ -17,7 +17,8 @@ export function InputText({ quiz, onAnswer }: InputTextProps): ReactElement {
   const [value, setValue] = useState('')
   const [answered, setAnswered] = useState(false)
 
-  const isCorrect = answered && normalizeAnswer(value) === normalizeAnswer(quiz.answer ?? '')
+  const isCorrect =
+    answered && normalizeAnswer(value) === normalizeAnswer(quiz.answer ?? '')
   const trimmed = value.trim()
   // -----------------------MAIN METHODS
   const handleSubmit = () => {
@@ -35,7 +36,9 @@ export function InputText({ quiz, onAnswer }: InputTextProps): ReactElement {
     <div className={style['InputText']}>
       <p className="question">{quiz.question}</p>
 
-      <div className={`input-wrapper ${answered ? (isCorrect ? 'correct' : 'incorrect') : ''}`}>
+      <div
+        className={`input-wrapper ${answered ? (isCorrect ? 'correct' : 'incorrect') : ''}`}
+      >
         <input
           type="text"
           placeholder="Escribe tu respuesta..."
@@ -43,7 +46,6 @@ export function InputText({ quiz, onAnswer }: InputTextProps): ReactElement {
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
           disabled={answered}
-          autoFocus
         />
         <button
           className="submit-btn"

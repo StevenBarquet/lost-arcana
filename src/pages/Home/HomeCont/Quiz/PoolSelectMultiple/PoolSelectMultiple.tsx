@@ -154,7 +154,6 @@ export function PoolSelectMultiple({
               }
               onBlur={handleBlur}
               disabled={isFull}
-              autoFocus
             />
           </div>
 

@@ -61,7 +61,6 @@ export function PoolSelect({ quiz, onAnswer }: PoolSelectProps): ReactElement {
             onFocus={() => query.length >= MIN_CHARS && setDropdownOpen(true)}
             onBlur={handleBlur}
             disabled={answered}
-            autoFocus
           />
           {answered && (
             <Icon
