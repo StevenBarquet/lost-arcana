@@ -1,8 +1,8 @@
-export const commitID = `e6fdade4343f447662a4ecd2da55cd6f2377cc92`;
+export const commitID = `57cf1e763b54793a4929e2ebb331c4e36c57ee65`;
     
-  export const commitMssg = `componente compartido en home y biblioteca`;
+  export const commitMssg = `biblioteca creada`;
   
-  export const commitDate = `Sun Oct 11 2026 16:33:47 GMT-0600 (Central Standard Time)`;
+  export const commitDate = `Sun Oct 11 2026 17:33:43 GMT-0600 (Central Standard Time)`;
   
   export const commitAuthor = `Steven Barquet`;
   

@@ -3,13 +3,29 @@ import { type ReactElement } from 'react'
 import { Icon } from '@iconify/react'
 // ---Components
 import { ColoredLi } from 'src/common/ColoredLi/ColoredLi'
-// ---Config
-import { useGetQuizCtrl } from '../quiz-controller'
 // ---Styles
 import style from './QuizSelector.module.scss'
 
-export function QuizSelector(): ReactElement {
-  const { options, handleSelectModule } = useGetQuizCtrl()
+type ModuleOption = {
+  key: string
+  title: string
+  icon: string
+  factsCount: number
+}
+
+type QuizSelectorProps = {
+  options: ModuleOption[]
+  onSelectModule: (option: ModuleOption) => void
+  title?: string
+  icon?: string
+}
+
+export function QuizSelector({
+  options,
+  onSelectModule,
+  title = 'Elige un módulo',
+  icon = 'solar:widget-5-bold-duotone',
+}: QuizSelectorProps): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
   // -----------------------MAIN METHODS
   // -----------------------HELPERS
@@ -17,18 +33,17 @@ export function QuizSelector(): ReactElement {
   return (
     <div className={style['QuizSelector']}>
       <h3>
-        <Icon icon="solar:widget-5-bold-duotone" width={22} />
-        Elige un módulo
+        <Icon icon={icon} width={22} />
+        {title}
       </h3>
 
       <div className="module-list">
         {options.map((option, i) => (
           <ColoredLi key={option.key} index={i} className="module-card">
             <button
-              // type="text"
               className="card-btn"
               disabled={option.factsCount === 0}
-              onClick={() => handleSelectModule(option)}
+              onClick={() => onSelectModule(option)}
             >
               <span className="card-icon">
                 <Icon icon={option.icon} width={24} />
