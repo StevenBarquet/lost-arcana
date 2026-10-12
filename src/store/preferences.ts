@@ -9,6 +9,7 @@ interface State {
   initials: string | null
   fullName: string | null
   practiceMode: PracticeMode
+  showFactImages: boolean
 }
 
 const initialState: State = {
@@ -17,6 +18,7 @@ const initialState: State = {
   initials: null,
   fullName: null,
   practiceMode: 'reviews',
+  showFactImages: false,
 }
 
 export interface PreferencesStore extends State {

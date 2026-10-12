@@ -21,6 +21,8 @@ type SortDir = 'asc' | 'desc' | null
 export const useLibraryCtrl = () => {
   // -----------------------CONSTS, HOOKS, STATES
   const practiceMode = usePreferencesStore((s) => s.practiceMode)
+  const showFactImages = usePreferencesStore((s) => s.showFactImages)
+  const updatePreferences = usePreferencesStore((s) => s.update)
   const reviewedFacts = useLeitnerStore((s) => s.reviewedFacts)
   const drawerState = useBoolean()
   const [selectedModule, setSelectedModule] = useState<ModuleOption>()
@@ -43,30 +45,35 @@ export const useLibraryCtrl = () => {
       result = result.filter((f) => f.title.toLowerCase().includes(q))
     }
     if (sortDir) {
-      result = [...result].sort((a, b) =>
-        sortDir === 'asc'
-          ? a.title.localeCompare(b.title)
-          : b.title.localeCompare(a.title),
-      )
+      const mod = allModules.find((m) => m.metadata.key === selectedModule?.key)
+      const sortKey = (mod?.metadata.sortKey ?? 'title') as keyof IFacts<AllModuleTypes>
+      result = [...result].sort((a, b) => {
+        const valA = String(a[sortKey])
+        const valB = String(b[sortKey])
+        return sortDir === 'asc'
+          ? valA.localeCompare(valB, undefined, { numeric: true })
+          : valB.localeCompare(valA, undefined, { numeric: true })
+      })
     }
     return result
   })()
 
   // -----------------------MAIN METHODS
   const handleSelectModule = (option: ModuleOption) => {
-    const moduleFacts = allModules.find(
-      (m) => m.metadata.key === option.key,
-    )!.facts
+    const mod = allModules.find((m) => m.metadata.key === option.key)!
 
-    setSelectedFacts(factsForMode(moduleFacts))
+    setSelectedFacts(factsForMode(mod.facts))
     setSelectedModule(option)
     setSearchQuery('')
-    setSortDir(null)
+    setSortDir(mod.metadata.sortKey ? 'asc' : null)
     drawerState.setTrue()
   }
 
   const toggleSort = () =>
     setSortDir((prev) => (prev === 'asc' ? 'desc' : 'asc'))
+
+  const toggleFactImages = () =>
+    updatePreferences({ showFactImages: !showFactImages })
 
   const clearFilters = () => {
     setSearchQuery('')
@@ -102,6 +109,8 @@ export const useLibraryCtrl = () => {
   // -----------------------HOOK DATA
   return {
     practiceMode,
+    showFactImages,
+    toggleFactImages,
     drawerState,
     selectedModule,
     moduleOptions,

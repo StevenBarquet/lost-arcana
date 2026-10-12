@@ -1,9 +1,10 @@
 // ---Dependencies
-import { type ReactElement } from 'react'
-import { Collapse, Drawer } from 'antd'
+import type { ReactElement } from 'react'
+import { Collapse, Drawer, Image } from 'antd'
 import { Icon } from '@iconify/react'
 // ---Components
 import { ColoredLi } from 'src/common/ColoredLi/ColoredLi'
+import { FactsToolbar } from './FactsToolbar/FactsToolbar'
 // ---Config
 import { useGetLibraryCtrl } from '../biblioteca-controller'
 // ---Styles
@@ -16,14 +17,10 @@ export function FactsDrawer(): ReactElement {
     selectedFacts,
     filteredFacts,
     searchQuery,
-    setSearchQuery,
-    sortDir,
-    toggleSort,
-    clearFilters,
+    showFactImages,
     onClose,
   } = useGetLibraryCtrl()
   // -----------------------CONSTS, HOOKS, STATES
-  const hasFilters = !!searchQuery || !!sortDir
 
   const collapseItems = filteredFacts?.map((fact, i) => ({
     key: `${fact.moduleType}-${fact.key}`,
@@ -34,14 +31,24 @@ export function FactsDrawer(): ReactElement {
       </ColoredLi>
     ),
     children: (
-      <ul className="qa-list">
-        {fact.quiz.map((q, qi) => (
-          <li key={qi}>
-            <strong>{q.question}</strong>
-            <p>{q.answer ?? q.answers?.join(', ')}</p>
-          </li>
-        ))}
-      </ul>
+      <>
+        {showFactImages && (
+          <Image
+            src={`imagenes-modulos/${fact.moduleType}-${fact.key}.webp`}
+            width={140}
+            className="fact-image"
+            preview={{ mask: <Icon icon="solar:eye-bold" width={20} /> }}
+          />
+        )}
+        <ul className="qa-list">
+          {fact.quiz.map((q, qi) => (
+            <li key={qi}>
+              <strong>{q.question}</strong>
+              <p>{q.answer ?? q.answers?.join(', ')}</p>
+            </li>
+          ))}
+        </ul>
+      </>
     ),
   }))
 
@@ -68,44 +75,7 @@ export function FactsDrawer(): ReactElement {
         </div>
       ) : (
         <>
-          <div className="toolbar">
-            <div className="search-box">
-              <Icon icon="solar:magnifer-linear" width={16} />
-              <input
-                type="text"
-                placeholder="Buscar por título…"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-
-            <button
-              className={`tool-btn ${sortDir ? 'active' : ''}`}
-              type="button"
-              onClick={toggleSort}
-              title={sortDir === 'asc' ? 'Ascendente' : 'Descendente'}
-            >
-              <Icon
-                icon={
-                  sortDir === 'desc'
-                    ? 'solar:sort-from-top-to-bottom-linear'
-                    : 'solar:sort-from-bottom-to-top-linear'
-                }
-                width={18}
-              />
-            </button>
-
-            {hasFilters && (
-              <button
-                className="tool-btn clear-btn"
-                type="button"
-                onClick={clearFilters}
-                title="Limpiar filtros"
-              >
-                <Icon icon="solar:close-circle-linear" width={18} />
-              </button>
-            )}
-          </div>
+          <FactsToolbar />
 
           {!filteredFacts?.length ? (
             <p className="no-results">Sin resultados para "{searchQuery}"</p>

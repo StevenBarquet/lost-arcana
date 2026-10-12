@@ -15,6 +15,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
     title: 'Arcanos Mayores',
     icon: 'boxicons:book-library-filled',
     key: 'major-arcana',
+    sortKey: 'key',
   },
   facts: [
     // 0 — Air, Yang

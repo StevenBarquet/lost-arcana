@@ -23,6 +23,7 @@ export type ILeitnerModule<moduleType extends string> = {
     title: string
     icon: string
     key: moduleType
+    sortKey?: keyof IFacts<moduleType>
   }
   facts: IFacts<moduleType>[]
 }
