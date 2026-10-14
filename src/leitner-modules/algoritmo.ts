@@ -21,3 +21,8 @@ export function needReview(storedFact: IStoredFact): boolean {
 
   return today.isSame(nextReviewDate) || today.isAfter(nextReviewDate)
 }
+
+export function computeNextBox(currentBox: number, allCorrect: boolean): number {
+  if (allCorrect) return Math.min(currentBox + 1, CAJAS.length - 1)
+  return Math.max(currentBox - 4, 0)
+}

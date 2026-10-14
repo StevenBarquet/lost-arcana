@@ -7,7 +7,7 @@ import { usePreferencesStore } from 'src/store/preferences'
 import { useLeitnerStore } from 'src/store/leitner'
 import { allModules, type AllModuleTypes } from 'src/leitner-modules'
 import type { IFacts, IStoredFact } from 'src/leitner-modules/types'
-import { needReview } from 'src/leitner-modules/algoritmo'
+import { needReview, computeNextBox } from 'src/leitner-modules/algoritmo'
 import { shuffle } from 'src/utils/functions/logicUtils'
 
 type ModuleOption = {
@@ -123,11 +123,13 @@ export const useQuizCtrl = () => {
     const storedFact = reviewedFacts.find(
       (e) => e.key === fact.key && e.moduleType === fact.moduleType,
     )
-    const toStoreFact: IStoredFact = storedFact || {
-      box: allCorrect ? 1 : 0,
-      date: new Date(),
-      key: fact.key,
+    const currentBox = storedFact?.box ?? 0
+
+    const toStoreFact: IStoredFact = {
       moduleType: fact.moduleType,
+      key: fact.key,
+      box: computeNextBox(currentBox, allCorrect),
+      date: new Date(),
     }
 
     updateFacts({
