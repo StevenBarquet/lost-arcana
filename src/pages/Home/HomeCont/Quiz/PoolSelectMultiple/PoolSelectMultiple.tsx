@@ -175,11 +175,7 @@ export function PoolSelectMultiple({
       )}
 
       {!submitted && selected.length > 0 && (
-        <button
-          disabled={selected.length !== expectedCount}
-          className="confirm-btn"
-          onClick={handleSubmit}
-        >
+        <button className="confirm-btn" onClick={handleSubmit}>
           <Icon icon="solar:check-read-bold-duotone" width={20} />
           <span>Confirmar selección</span>
         </button>

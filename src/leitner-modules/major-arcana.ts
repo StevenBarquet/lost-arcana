@@ -43,6 +43,10 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           quizType: 'pool-select',
           options: elementOptions,
         },
+        // {
+        //   question: 'Asociaciones al derecho',
+        //   answer:
+        // }
       ],
     },
     // 1 — Earth, Yang
