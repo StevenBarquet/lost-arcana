@@ -3,6 +3,7 @@ export type IQuiz = {
   answer: string | null
   answers?: string[]
   options: string[] | null
+  autocompleteLength?: number
   quizType:
     | 'multi-choice'
     | 'input-text'

@@ -11,16 +11,16 @@ import {
 // ---Styles
 import style from './PoolSelectMultiple.module.scss'
 
-const MIN_CHARS = 3
-
 type PoolSelectMultipleProps = {
   quiz: IQuiz
   onAnswer: (isMistake: boolean) => void
+  minChars?: number
 }
 
 export function PoolSelectMultiple({
   quiz,
   onAnswer,
+  minChars = 3,
 }: PoolSelectMultipleProps): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
   const rawOptions = quiz.options ?? []
@@ -40,14 +40,14 @@ export function PoolSelectMultiple({
     (opt) => !selected.some((s) => normalizeAnswer(s) === normalizeAnswer(opt)),
   )
   const filtered =
-    query.length >= MIN_CHARS ? filterByRelevance(query, available) : []
+    query.length >= minChars ? filterByRelevance(query, available) : []
   const showDropdown = dropdownOpen && filtered.length > 0 && !submitted
   const isFull = selected.length >= expectedCount
   // -----------------------MAIN METHODS
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value
     setQuery(val)
-    setDropdownOpen(val.length >= MIN_CHARS)
+    setDropdownOpen(val.length >= minChars)
   }
 
   const handleSelectOption = (option: string) => {
@@ -154,7 +154,7 @@ export function PoolSelectMultiple({
               }
               value={query}
               onChange={handleInputChange}
-              onFocus={() => query.length >= MIN_CHARS && setDropdownOpen(true)}
+              onFocus={() => query.length >= minChars && setDropdownOpen(true)}
               onBlur={handleBlur}
               disabled={isFull}
             />

@@ -1,7 +1,11 @@
+import {
+  buildMultipleStringOptions,
+  buildSingleStringOptions,
+} from 'src/utils/functions/logicUtils'
 import { RESPUESTAS_COMUNES } from './respuestas-comunes'
 import type { ILeitnerModule } from './types'
 
-const { principios, elementos } = RESPUESTAS_COMUNES
+const { principios, elementos, arcanos_mayores } = RESPUESTAS_COMUNES
 
 const elementOptions = [
   elementos.fire,
@@ -9,6 +13,15 @@ const elementOptions = [
   elementos.water,
   elementos.earth,
 ]
+
+const ALL_ARCHETYPES = Object.values(arcanos_mayores).map((e) => e.arquetipo)
+const ALL_VISUAL = Object.values(arcanos_mayores).map((e) => e.anclaVisual)
+const ALL_UPRIGHT = Object.values(arcanos_mayores).map(
+  (e) => e.keywords.upright,
+)
+const ALL_REVERSED = Object.values(arcanos_mayores).map(
+  (e) => e.keywords.reversed,
+)
 
 export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
   metadata: {
@@ -18,7 +31,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
     sortKey: 'key',
   },
   facts: [
-    // 0 — Air, Yang
+    // 0
     {
       moduleType: 'major-arcana',
       key: '00',
@@ -43,13 +56,54 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           quizType: 'pool-select',
           options: elementOptions,
         },
-        // {
-        //   question: 'Asociaciones al derecho',
-        //   answer:
-        // }
+        {
+          question: 'Ancla visual',
+          answer: arcanos_mayores['00'].anclaVisual,
+          options: buildSingleStringOptions(
+            arcanos_mayores['00'].anclaVisual,
+            ALL_VISUAL,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 10,
+        },
+        {
+          question: 'Arquetipo',
+          answer: arcanos_mayores['00'].arquetipo,
+          options: buildSingleStringOptions(
+            arcanos_mayores['00'].arquetipo,
+            ALL_ARCHETYPES,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 12,
+        },
+        {
+          question: 'Asociaciones al derecho',
+          answer: null,
+          answers: arcanos_mayores['00'].keywords.upright,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['00'].keywords.upright,
+            ALL_UPRIGHT,
+            arcanos_mayores['00'].keywords.upright.length * 4,
+          ),
+        },
+        {
+          question: 'Asociaciones al revés',
+          answer: null,
+          answers: arcanos_mayores['00'].keywords.reversed,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['00'].keywords.reversed,
+            ALL_REVERSED,
+            arcanos_mayores['00'].keywords.reversed.length * 2,
+          ),
+          autocompleteLength: 2,
+        },
       ],
     },
-    // 1 — Earth, Yang
+    // 1
     {
       moduleType: 'major-arcana',
       key: '01',
@@ -74,9 +128,54 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           quizType: 'pool-select',
           options: elementOptions,
         },
+        {
+          question: 'Ancla visual',
+          answer: arcanos_mayores['01'].anclaVisual,
+          options: buildSingleStringOptions(
+            arcanos_mayores['01'].anclaVisual,
+            ALL_VISUAL,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 10,
+        },
+        {
+          question: 'Arquetipo',
+          answer: arcanos_mayores['01'].arquetipo,
+          options: buildSingleStringOptions(
+            arcanos_mayores['01'].arquetipo,
+            ALL_ARCHETYPES,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 12,
+        },
+        {
+          question: 'Asociaciones al derecho',
+          answer: null,
+          answers: arcanos_mayores['01'].keywords.upright,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['01'].keywords.upright,
+            ALL_UPRIGHT,
+            arcanos_mayores['01'].keywords.upright.length * 4,
+          ),
+        },
+        {
+          question: 'Asociaciones al revés',
+          answer: null,
+          answers: arcanos_mayores['01'].keywords.reversed,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['01'].keywords.reversed,
+            ALL_REVERSED,
+            arcanos_mayores['01'].keywords.reversed.length * 2,
+          ),
+          autocompleteLength: 2,
+        },
       ],
     },
-    // 2 — Water, Yin
+    // 2
     {
       moduleType: 'major-arcana',
       key: '02',
@@ -101,9 +200,54 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           quizType: 'pool-select',
           options: elementOptions,
         },
+        {
+          question: 'Ancla visual',
+          answer: arcanos_mayores['02'].anclaVisual,
+          options: buildSingleStringOptions(
+            arcanos_mayores['02'].anclaVisual,
+            ALL_VISUAL,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 10,
+        },
+        {
+          question: 'Arquetipo',
+          answer: arcanos_mayores['02'].arquetipo,
+          options: buildSingleStringOptions(
+            arcanos_mayores['02'].arquetipo,
+            ALL_ARCHETYPES,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 12,
+        },
+        {
+          question: 'Asociaciones al derecho',
+          answer: null,
+          answers: arcanos_mayores['02'].keywords.upright,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['02'].keywords.upright,
+            ALL_UPRIGHT,
+            arcanos_mayores['02'].keywords.upright.length * 4,
+          ),
+        },
+        {
+          question: 'Asociaciones al revés',
+          answer: null,
+          answers: arcanos_mayores['02'].keywords.reversed,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['02'].keywords.reversed,
+            ALL_REVERSED,
+            arcanos_mayores['02'].keywords.reversed.length * 2,
+          ),
+          autocompleteLength: 2,
+        },
       ],
     },
-    // 3 — Earth, Yang
+    // 3
     {
       moduleType: 'major-arcana',
       key: '03',
@@ -128,9 +272,54 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           quizType: 'pool-select',
           options: elementOptions,
         },
+        {
+          question: 'Ancla visual',
+          answer: arcanos_mayores['03'].anclaVisual,
+          options: buildSingleStringOptions(
+            arcanos_mayores['03'].anclaVisual,
+            ALL_VISUAL,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 10,
+        },
+        {
+          question: 'Arquetipo',
+          answer: arcanos_mayores['03'].arquetipo,
+          options: buildSingleStringOptions(
+            arcanos_mayores['03'].arquetipo,
+            ALL_ARCHETYPES,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 12,
+        },
+        {
+          question: 'Asociaciones al derecho',
+          answer: null,
+          answers: arcanos_mayores['03'].keywords.upright,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['03'].keywords.upright,
+            ALL_UPRIGHT,
+            arcanos_mayores['03'].keywords.upright.length * 4,
+          ),
+        },
+        {
+          question: 'Asociaciones al revés',
+          answer: null,
+          answers: arcanos_mayores['03'].keywords.reversed,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['03'].keywords.reversed,
+            ALL_REVERSED,
+            arcanos_mayores['03'].keywords.reversed.length * 2,
+          ),
+          autocompleteLength: 2,
+        },
       ],
     },
-    // 4 — Fire, Yang
+    // 4
     {
       moduleType: 'major-arcana',
       key: '04',
@@ -155,9 +344,54 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           quizType: 'pool-select',
           options: elementOptions,
         },
+        {
+          question: 'Ancla visual',
+          answer: arcanos_mayores['04'].anclaVisual,
+          options: buildSingleStringOptions(
+            arcanos_mayores['04'].anclaVisual,
+            ALL_VISUAL,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 10,
+        },
+        {
+          question: 'Arquetipo',
+          answer: arcanos_mayores['04'].arquetipo,
+          options: buildSingleStringOptions(
+            arcanos_mayores['04'].arquetipo,
+            ALL_ARCHETYPES,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 12,
+        },
+        {
+          question: 'Asociaciones al derecho',
+          answer: null,
+          answers: arcanos_mayores['04'].keywords.upright,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['04'].keywords.upright,
+            ALL_UPRIGHT,
+            arcanos_mayores['04'].keywords.upright.length * 4,
+          ),
+        },
+        {
+          question: 'Asociaciones al revés',
+          answer: null,
+          answers: arcanos_mayores['04'].keywords.reversed,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['04'].keywords.reversed,
+            ALL_REVERSED,
+            arcanos_mayores['04'].keywords.reversed.length * 2,
+          ),
+          autocompleteLength: 2,
+        },
       ],
     },
-    // 5 — Earth, Yang
+    // 5
     {
       moduleType: 'major-arcana',
       key: '05',
@@ -182,9 +416,54 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           quizType: 'pool-select',
           options: elementOptions,
         },
+        {
+          question: 'Ancla visual',
+          answer: arcanos_mayores['05'].anclaVisual,
+          options: buildSingleStringOptions(
+            arcanos_mayores['05'].anclaVisual,
+            ALL_VISUAL,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 10,
+        },
+        {
+          question: 'Arquetipo',
+          answer: arcanos_mayores['05'].arquetipo,
+          options: buildSingleStringOptions(
+            arcanos_mayores['05'].arquetipo,
+            ALL_ARCHETYPES,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 12,
+        },
+        {
+          question: 'Asociaciones al derecho',
+          answer: null,
+          answers: arcanos_mayores['05'].keywords.upright,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['05'].keywords.upright,
+            ALL_UPRIGHT,
+            arcanos_mayores['05'].keywords.upright.length * 4,
+          ),
+        },
+        {
+          question: 'Asociaciones al revés',
+          answer: null,
+          answers: arcanos_mayores['05'].keywords.reversed,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['05'].keywords.reversed,
+            ALL_REVERSED,
+            arcanos_mayores['05'].keywords.reversed.length * 2,
+          ),
+          autocompleteLength: 2,
+        },
       ],
     },
-    // 6 — Air, Yang
+    // 6
     {
       moduleType: 'major-arcana',
       key: '06',
@@ -209,9 +488,54 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           quizType: 'pool-select',
           options: elementOptions,
         },
+        {
+          question: 'Ancla visual',
+          answer: arcanos_mayores['06'].anclaVisual,
+          options: buildSingleStringOptions(
+            arcanos_mayores['06'].anclaVisual,
+            ALL_VISUAL,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 10,
+        },
+        {
+          question: 'Arquetipo',
+          answer: arcanos_mayores['06'].arquetipo,
+          options: buildSingleStringOptions(
+            arcanos_mayores['06'].arquetipo,
+            ALL_ARCHETYPES,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 12,
+        },
+        {
+          question: 'Asociaciones al derecho',
+          answer: null,
+          answers: arcanos_mayores['06'].keywords.upright,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['06'].keywords.upright,
+            ALL_UPRIGHT,
+            arcanos_mayores['06'].keywords.upright.length * 4,
+          ),
+        },
+        {
+          question: 'Asociaciones al revés',
+          answer: null,
+          answers: arcanos_mayores['06'].keywords.reversed,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['06'].keywords.reversed,
+            ALL_REVERSED,
+            arcanos_mayores['06'].keywords.reversed.length * 2,
+          ),
+          autocompleteLength: 2,
+        },
       ],
     },
-    // 7 — Water, Yin
+    // 7
     {
       moduleType: 'major-arcana',
       key: '07',
@@ -236,9 +560,54 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           quizType: 'pool-select',
           options: elementOptions,
         },
+        {
+          question: 'Ancla visual',
+          answer: arcanos_mayores['07'].anclaVisual,
+          options: buildSingleStringOptions(
+            arcanos_mayores['07'].anclaVisual,
+            ALL_VISUAL,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 10,
+        },
+        {
+          question: 'Arquetipo',
+          answer: arcanos_mayores['07'].arquetipo,
+          options: buildSingleStringOptions(
+            arcanos_mayores['07'].arquetipo,
+            ALL_ARCHETYPES,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 12,
+        },
+        {
+          question: 'Asociaciones al derecho',
+          answer: null,
+          answers: arcanos_mayores['07'].keywords.upright,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['07'].keywords.upright,
+            ALL_UPRIGHT,
+            arcanos_mayores['07'].keywords.upright.length * 4,
+          ),
+        },
+        {
+          question: 'Asociaciones al revés',
+          answer: null,
+          answers: arcanos_mayores['07'].keywords.reversed,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['07'].keywords.reversed,
+            ALL_REVERSED,
+            arcanos_mayores['07'].keywords.reversed.length * 2,
+          ),
+          autocompleteLength: 2,
+        },
       ],
     },
-    // 8 — Fire, Yang
+    // 8
     {
       moduleType: 'major-arcana',
       key: '08',
@@ -263,9 +632,54 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           quizType: 'pool-select',
           options: elementOptions,
         },
+        {
+          question: 'Ancla visual',
+          answer: arcanos_mayores['08'].anclaVisual,
+          options: buildSingleStringOptions(
+            arcanos_mayores['08'].anclaVisual,
+            ALL_VISUAL,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 10,
+        },
+        {
+          question: 'Arquetipo',
+          answer: arcanos_mayores['08'].arquetipo,
+          options: buildSingleStringOptions(
+            arcanos_mayores['08'].arquetipo,
+            ALL_ARCHETYPES,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 12,
+        },
+        {
+          question: 'Asociaciones al derecho',
+          answer: null,
+          answers: arcanos_mayores['08'].keywords.upright,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['08'].keywords.upright,
+            ALL_UPRIGHT,
+            arcanos_mayores['08'].keywords.upright.length * 4,
+          ),
+        },
+        {
+          question: 'Asociaciones al revés',
+          answer: null,
+          answers: arcanos_mayores['08'].keywords.reversed,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['08'].keywords.reversed,
+            ALL_REVERSED,
+            arcanos_mayores['08'].keywords.reversed.length * 2,
+          ),
+          autocompleteLength: 2,
+        },
       ],
     },
-    // 9 — Earth, Yang
+    // 9
     {
       moduleType: 'major-arcana',
       key: '09',
@@ -290,9 +704,54 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           quizType: 'pool-select',
           options: elementOptions,
         },
+        {
+          question: 'Ancla visual',
+          answer: arcanos_mayores['09'].anclaVisual,
+          options: buildSingleStringOptions(
+            arcanos_mayores['09'].anclaVisual,
+            ALL_VISUAL,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 10,
+        },
+        {
+          question: 'Arquetipo',
+          answer: arcanos_mayores['09'].arquetipo,
+          options: buildSingleStringOptions(
+            arcanos_mayores['09'].arquetipo,
+            ALL_ARCHETYPES,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 12,
+        },
+        {
+          question: 'Asociaciones al derecho',
+          answer: null,
+          answers: arcanos_mayores['09'].keywords.upright,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['09'].keywords.upright,
+            ALL_UPRIGHT,
+            arcanos_mayores['09'].keywords.upright.length * 4,
+          ),
+        },
+        {
+          question: 'Asociaciones al revés',
+          answer: null,
+          answers: arcanos_mayores['09'].keywords.reversed,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['09'].keywords.reversed,
+            ALL_REVERSED,
+            arcanos_mayores['09'].keywords.reversed.length * 2,
+          ),
+          autocompleteLength: 2,
+        },
       ],
     },
-    // 10 — Fire, Yang
+    // 10
     {
       moduleType: 'major-arcana',
       key: '10',
@@ -317,9 +776,54 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           quizType: 'pool-select',
           options: elementOptions,
         },
+        {
+          question: 'Ancla visual',
+          answer: arcanos_mayores['10'].anclaVisual,
+          options: buildSingleStringOptions(
+            arcanos_mayores['10'].anclaVisual,
+            ALL_VISUAL,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 10,
+        },
+        {
+          question: 'Arquetipo',
+          answer: arcanos_mayores['10'].arquetipo,
+          options: buildSingleStringOptions(
+            arcanos_mayores['10'].arquetipo,
+            ALL_ARCHETYPES,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 12,
+        },
+        {
+          question: 'Asociaciones al derecho',
+          answer: null,
+          answers: arcanos_mayores['10'].keywords.upright,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['10'].keywords.upright,
+            ALL_UPRIGHT,
+            arcanos_mayores['10'].keywords.upright.length * 4,
+          ),
+        },
+        {
+          question: 'Asociaciones al revés',
+          answer: null,
+          answers: arcanos_mayores['10'].keywords.reversed,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['10'].keywords.reversed,
+            ALL_REVERSED,
+            arcanos_mayores['10'].keywords.reversed.length * 2,
+          ),
+          autocompleteLength: 2,
+        },
       ],
     },
-    // 11 — Air, Yang
+    // 11
     {
       moduleType: 'major-arcana',
       key: '11',
@@ -344,9 +848,54 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           quizType: 'pool-select',
           options: elementOptions,
         },
+        {
+          question: 'Ancla visual',
+          answer: arcanos_mayores['11'].anclaVisual,
+          options: buildSingleStringOptions(
+            arcanos_mayores['11'].anclaVisual,
+            ALL_VISUAL,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 10,
+        },
+        {
+          question: 'Arquetipo',
+          answer: arcanos_mayores['11'].arquetipo,
+          options: buildSingleStringOptions(
+            arcanos_mayores['11'].arquetipo,
+            ALL_ARCHETYPES,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 12,
+        },
+        {
+          question: 'Asociaciones al derecho',
+          answer: null,
+          answers: arcanos_mayores['11'].keywords.upright,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['11'].keywords.upright,
+            ALL_UPRIGHT,
+            arcanos_mayores['11'].keywords.upright.length * 4,
+          ),
+        },
+        {
+          question: 'Asociaciones al revés',
+          answer: null,
+          answers: arcanos_mayores['11'].keywords.reversed,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['11'].keywords.reversed,
+            ALL_REVERSED,
+            arcanos_mayores['11'].keywords.reversed.length * 2,
+          ),
+          autocompleteLength: 2,
+        },
       ],
     },
-    // 12 — Water, Yin
+    // 12
     {
       moduleType: 'major-arcana',
       key: '12',
@@ -371,9 +920,54 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           quizType: 'pool-select',
           options: elementOptions,
         },
+        {
+          question: 'Ancla visual',
+          answer: arcanos_mayores['12'].anclaVisual,
+          options: buildSingleStringOptions(
+            arcanos_mayores['12'].anclaVisual,
+            ALL_VISUAL,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 10,
+        },
+        {
+          question: 'Arquetipo',
+          answer: arcanos_mayores['12'].arquetipo,
+          options: buildSingleStringOptions(
+            arcanos_mayores['12'].arquetipo,
+            ALL_ARCHETYPES,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 12,
+        },
+        {
+          question: 'Asociaciones al derecho',
+          answer: null,
+          answers: arcanos_mayores['12'].keywords.upright,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['12'].keywords.upright,
+            ALL_UPRIGHT,
+            arcanos_mayores['12'].keywords.upright.length * 4,
+          ),
+        },
+        {
+          question: 'Asociaciones al revés',
+          answer: null,
+          answers: arcanos_mayores['12'].keywords.reversed,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['12'].keywords.reversed,
+            ALL_REVERSED,
+            arcanos_mayores['12'].keywords.reversed.length * 2,
+          ),
+          autocompleteLength: 2,
+        },
       ],
     },
-    // 13 — Water, Yin
+    // 13
     {
       moduleType: 'major-arcana',
       key: '13',
@@ -398,9 +992,54 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           quizType: 'pool-select',
           options: elementOptions,
         },
+        {
+          question: 'Ancla visual',
+          answer: arcanos_mayores['13'].anclaVisual,
+          options: buildSingleStringOptions(
+            arcanos_mayores['13'].anclaVisual,
+            ALL_VISUAL,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 10,
+        },
+        {
+          question: 'Arquetipo',
+          answer: arcanos_mayores['13'].arquetipo,
+          options: buildSingleStringOptions(
+            arcanos_mayores['13'].arquetipo,
+            ALL_ARCHETYPES,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 12,
+        },
+        {
+          question: 'Asociaciones al derecho',
+          answer: null,
+          answers: arcanos_mayores['13'].keywords.upright,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['13'].keywords.upright,
+            ALL_UPRIGHT,
+            arcanos_mayores['13'].keywords.upright.length * 4,
+          ),
+        },
+        {
+          question: 'Asociaciones al revés',
+          answer: null,
+          answers: arcanos_mayores['13'].keywords.reversed,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['13'].keywords.reversed,
+            ALL_REVERSED,
+            arcanos_mayores['13'].keywords.reversed.length * 2,
+          ),
+          autocompleteLength: 2,
+        },
       ],
     },
-    // 14 — Fire, Yang
+    // 14
     {
       moduleType: 'major-arcana',
       key: '14',
@@ -425,9 +1064,54 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           quizType: 'pool-select',
           options: elementOptions,
         },
+        {
+          question: 'Ancla visual',
+          answer: arcanos_mayores['14'].anclaVisual,
+          options: buildSingleStringOptions(
+            arcanos_mayores['14'].anclaVisual,
+            ALL_VISUAL,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 10,
+        },
+        {
+          question: 'Arquetipo',
+          answer: arcanos_mayores['14'].arquetipo,
+          options: buildSingleStringOptions(
+            arcanos_mayores['14'].arquetipo,
+            ALL_ARCHETYPES,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 12,
+        },
+        {
+          question: 'Asociaciones al derecho',
+          answer: null,
+          answers: arcanos_mayores['14'].keywords.upright,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['14'].keywords.upright,
+            ALL_UPRIGHT,
+            arcanos_mayores['14'].keywords.upright.length * 4,
+          ),
+        },
+        {
+          question: 'Asociaciones al revés',
+          answer: null,
+          answers: arcanos_mayores['14'].keywords.reversed,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['14'].keywords.reversed,
+            ALL_REVERSED,
+            arcanos_mayores['14'].keywords.reversed.length * 2,
+          ),
+          autocompleteLength: 2,
+        },
       ],
     },
-    // 15 — Earth, Yang
+    // 15
     {
       moduleType: 'major-arcana',
       key: '15',
@@ -452,9 +1136,54 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           quizType: 'pool-select',
           options: elementOptions,
         },
+        {
+          question: 'Ancla visual',
+          answer: arcanos_mayores['15'].anclaVisual,
+          options: buildSingleStringOptions(
+            arcanos_mayores['15'].anclaVisual,
+            ALL_VISUAL,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 10,
+        },
+        {
+          question: 'Arquetipo',
+          answer: arcanos_mayores['15'].arquetipo,
+          options: buildSingleStringOptions(
+            arcanos_mayores['15'].arquetipo,
+            ALL_ARCHETYPES,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 12,
+        },
+        {
+          question: 'Asociaciones al derecho',
+          answer: null,
+          answers: arcanos_mayores['15'].keywords.upright,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['15'].keywords.upright,
+            ALL_UPRIGHT,
+            arcanos_mayores['15'].keywords.upright.length * 4,
+          ),
+        },
+        {
+          question: 'Asociaciones al revés',
+          answer: null,
+          answers: arcanos_mayores['15'].keywords.reversed,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['15'].keywords.reversed,
+            ALL_REVERSED,
+            arcanos_mayores['15'].keywords.reversed.length * 2,
+          ),
+          autocompleteLength: 2,
+        },
       ],
     },
-    // 16 — Fire, Yang
+    // 16
     {
       moduleType: 'major-arcana',
       key: '16',
@@ -479,9 +1208,54 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           quizType: 'pool-select',
           options: elementOptions,
         },
+        {
+          question: 'Ancla visual',
+          answer: arcanos_mayores['16'].anclaVisual,
+          options: buildSingleStringOptions(
+            arcanos_mayores['16'].anclaVisual,
+            ALL_VISUAL,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 10,
+        },
+        {
+          question: 'Arquetipo',
+          answer: arcanos_mayores['16'].arquetipo,
+          options: buildSingleStringOptions(
+            arcanos_mayores['16'].arquetipo,
+            ALL_ARCHETYPES,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 12,
+        },
+        {
+          question: 'Asociaciones al derecho',
+          answer: null,
+          answers: arcanos_mayores['16'].keywords.upright,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['16'].keywords.upright,
+            ALL_UPRIGHT,
+            arcanos_mayores['16'].keywords.upright.length * 4,
+          ),
+        },
+        {
+          question: 'Asociaciones al revés',
+          answer: null,
+          answers: arcanos_mayores['16'].keywords.reversed,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['16'].keywords.reversed,
+            ALL_REVERSED,
+            arcanos_mayores['16'].keywords.reversed.length * 2,
+          ),
+          autocompleteLength: 2,
+        },
       ],
     },
-    // 17 — Air, Yang
+    // 17
     {
       moduleType: 'major-arcana',
       key: '17',
@@ -506,9 +1280,54 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           quizType: 'pool-select',
           options: elementOptions,
         },
+        {
+          question: 'Ancla visual',
+          answer: arcanos_mayores['17'].anclaVisual,
+          options: buildSingleStringOptions(
+            arcanos_mayores['17'].anclaVisual,
+            ALL_VISUAL,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 10,
+        },
+        {
+          question: 'Arquetipo',
+          answer: arcanos_mayores['17'].arquetipo,
+          options: buildSingleStringOptions(
+            arcanos_mayores['17'].arquetipo,
+            ALL_ARCHETYPES,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 12,
+        },
+        {
+          question: 'Asociaciones al derecho',
+          answer: null,
+          answers: arcanos_mayores['17'].keywords.upright,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['17'].keywords.upright,
+            ALL_UPRIGHT,
+            arcanos_mayores['17'].keywords.upright.length * 4,
+          ),
+        },
+        {
+          question: 'Asociaciones al revés',
+          answer: null,
+          answers: arcanos_mayores['17'].keywords.reversed,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['17'].keywords.reversed,
+            ALL_REVERSED,
+            arcanos_mayores['17'].keywords.reversed.length * 2,
+          ),
+          autocompleteLength: 2,
+        },
       ],
     },
-    // 18 — Water, Yin
+    // 18
     {
       moduleType: 'major-arcana',
       key: '18',
@@ -533,9 +1352,54 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           quizType: 'pool-select',
           options: elementOptions,
         },
+        {
+          question: 'Ancla visual',
+          answer: arcanos_mayores['18'].anclaVisual,
+          options: buildSingleStringOptions(
+            arcanos_mayores['18'].anclaVisual,
+            ALL_VISUAL,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 10,
+        },
+        {
+          question: 'Arquetipo',
+          answer: arcanos_mayores['18'].arquetipo,
+          options: buildSingleStringOptions(
+            arcanos_mayores['18'].arquetipo,
+            ALL_ARCHETYPES,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 12,
+        },
+        {
+          question: 'Asociaciones al derecho',
+          answer: null,
+          answers: arcanos_mayores['18'].keywords.upright,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['18'].keywords.upright,
+            ALL_UPRIGHT,
+            arcanos_mayores['18'].keywords.upright.length * 4,
+          ),
+        },
+        {
+          question: 'Asociaciones al revés',
+          answer: null,
+          answers: arcanos_mayores['18'].keywords.reversed,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['18'].keywords.reversed,
+            ALL_REVERSED,
+            arcanos_mayores['18'].keywords.reversed.length * 2,
+          ),
+          autocompleteLength: 2,
+        },
       ],
     },
-    // 19 — Fire, Yang
+    // 19
     {
       moduleType: 'major-arcana',
       key: '19',
@@ -560,9 +1424,54 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           quizType: 'pool-select',
           options: elementOptions,
         },
+        {
+          question: 'Ancla visual',
+          answer: arcanos_mayores['19'].anclaVisual,
+          options: buildSingleStringOptions(
+            arcanos_mayores['19'].anclaVisual,
+            ALL_VISUAL,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 10,
+        },
+        {
+          question: 'Arquetipo',
+          answer: arcanos_mayores['19'].arquetipo,
+          options: buildSingleStringOptions(
+            arcanos_mayores['19'].arquetipo,
+            ALL_ARCHETYPES,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 12,
+        },
+        {
+          question: 'Asociaciones al derecho',
+          answer: null,
+          answers: arcanos_mayores['19'].keywords.upright,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['19'].keywords.upright,
+            ALL_UPRIGHT,
+            arcanos_mayores['19'].keywords.upright.length * 4,
+          ),
+        },
+        {
+          question: 'Asociaciones al revés',
+          answer: null,
+          answers: arcanos_mayores['19'].keywords.reversed,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['19'].keywords.reversed,
+            ALL_REVERSED,
+            arcanos_mayores['19'].keywords.reversed.length * 2,
+          ),
+          autocompleteLength: 2,
+        },
       ],
     },
-    // 20 — Fire, Yang & Water, Yin
+    // 20
     {
       moduleType: 'major-arcana',
       key: '20',
@@ -589,9 +1498,54 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           quizType: 'pool-select-multiple',
           options: elementOptions,
         },
+        {
+          question: 'Ancla visual',
+          answer: arcanos_mayores['20'].anclaVisual,
+          options: buildSingleStringOptions(
+            arcanos_mayores['20'].anclaVisual,
+            ALL_VISUAL,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 10,
+        },
+        {
+          question: 'Arquetipo',
+          answer: arcanos_mayores['20'].arquetipo,
+          options: buildSingleStringOptions(
+            arcanos_mayores['20'].arquetipo,
+            ALL_ARCHETYPES,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 12,
+        },
+        {
+          question: 'Asociaciones al derecho',
+          answer: null,
+          answers: arcanos_mayores['20'].keywords.upright,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['20'].keywords.upright,
+            ALL_UPRIGHT,
+            arcanos_mayores['20'].keywords.upright.length * 4,
+          ),
+        },
+        {
+          question: 'Asociaciones al revés',
+          answer: null,
+          answers: arcanos_mayores['20'].keywords.reversed,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['20'].keywords.reversed,
+            ALL_REVERSED,
+            arcanos_mayores['20'].keywords.reversed.length * 2,
+          ),
+          autocompleteLength: 2,
+        },
       ],
     },
-    // 21 — Earth, Yang
+    // 21
     {
       moduleType: 'major-arcana',
       key: '21',
@@ -615,6 +1569,51 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
           answer: elementos.earth,
           quizType: 'pool-select',
           options: elementOptions,
+        },
+        {
+          question: 'Ancla visual',
+          answer: arcanos_mayores['21'].anclaVisual,
+          options: buildSingleStringOptions(
+            arcanos_mayores['21'].anclaVisual,
+            ALL_VISUAL,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 10,
+        },
+        {
+          question: 'Arquetipo',
+          answer: arcanos_mayores['21'].arquetipo,
+          options: buildSingleStringOptions(
+            arcanos_mayores['21'].arquetipo,
+            ALL_ARCHETYPES,
+            8,
+          ),
+          quizType: 'pool-select',
+          autocompleteLength: 12,
+        },
+        {
+          question: 'Asociaciones al derecho',
+          answer: null,
+          answers: arcanos_mayores['21'].keywords.upright,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['21'].keywords.upright,
+            ALL_UPRIGHT,
+            arcanos_mayores['21'].keywords.upright.length * 4,
+          ),
+        },
+        {
+          question: 'Asociaciones al revés',
+          answer: null,
+          answers: arcanos_mayores['21'].keywords.reversed,
+          quizType: 'pool-select-multiple',
+          options: buildMultipleStringOptions(
+            arcanos_mayores['21'].keywords.reversed,
+            ALL_REVERSED,
+            arcanos_mayores['21'].keywords.reversed.length * 2,
+          ),
+          autocompleteLength: 2,
         },
       ],
     },

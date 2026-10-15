@@ -7,7 +7,7 @@ export function normalizeAnswer(text: string): string {
     .replace(/\s+/g, ' ')
 }
 
-// Algoritmo shuffle arrays de Fisher-Yates
+/** Algoritmo shuffle arrays de Fisher-Yates */
 export function shuffle<T>(arr: T[]): T[] {
   const shuffled = [...arr]
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -17,7 +17,11 @@ export function shuffle<T>(arr: T[]): T[] {
   return shuffled
 }
 
-export function filterByRelevance(query: string, options: string[], max = 8): string[] {
+export function filterByRelevance(
+  query: string,
+  options: string[],
+  max = 8,
+): string[] {
   const q = normalizeAnswer(query)
   return options
     .map((opt) => {
@@ -35,5 +39,28 @@ export function filterByRelevance(query: string, options: string[], max = 8): st
 }
 
 export function flattenComaSep(options: string[]): string[] {
-  return options.flatMap((opt) => opt.split(',').map((s) => s.trim())).filter(Boolean)
+  return options
+    .flatMap((opt) => opt.split(',').map((s) => s.trim()))
+    .filter(Boolean)
+}
+
+export function buildSingleStringOptions(
+  answer: string,
+  rest: string[],
+  total: number,
+): string[] {
+  const pool = rest.filter((o) => o !== answer)
+  const distractors = shuffle(pool).slice(0, total - 1)
+  return shuffle([answer, ...distractors])
+}
+
+export function buildMultipleStringOptions(
+  answer: string[],
+  rest: string[][],
+  total: number,
+): string[] {
+  const answerSet = new Set(answer)
+  const pool = rest.flat().filter((o) => !answerSet.has(o))
+  const distractors = shuffle(pool).slice(0, total - answer.length)
+  return shuffle([...answer, ...distractors])
 }

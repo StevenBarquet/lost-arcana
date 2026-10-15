@@ -98,6 +98,7 @@ export function Quiz(): ReactElement {
                 key={quizKey}
                 quiz={quiz}
                 onAnswer={handleAnswer}
+                minChars={quiz.autocompleteLength}
               />
             )
         })}

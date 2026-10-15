@@ -10,14 +10,13 @@ import {
 // ---Styles
 import style from './PoolSelect.module.scss'
 
-const MIN_CHARS = 3
-
 type PoolSelectProps = {
   quiz: IQuiz
   onAnswer: (isMistake: boolean) => void
+  minChars?: number
 }
 
-export function PoolSelect({ quiz, onAnswer }: PoolSelectProps): ReactElement {
+export function PoolSelect({ quiz, onAnswer, minChars = 3 }: PoolSelectProps): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
   const options = quiz.options ?? []
   const [query, setQuery] = useState('')
@@ -29,13 +28,13 @@ export function PoolSelect({ quiz, onAnswer }: PoolSelectProps): ReactElement {
   const isCorrect =
     answered && normalizeAnswer(selected) === normalizeAnswer(quiz.answer ?? '')
   const filtered =
-    query.length >= MIN_CHARS ? filterByRelevance(query, options) : []
+    query.length >= minChars ? filterByRelevance(query, options) : []
   const showDropdown = dropdownOpen && filtered.length > 0 && !answered
   // -----------------------MAIN METHODS
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value
     setQuery(val)
-    setDropdownOpen(val.length >= MIN_CHARS)
+    setDropdownOpen(val.length >= minChars)
   }
 
   const handleSelectOption = (option: string) => {
@@ -71,7 +70,7 @@ export function PoolSelect({ quiz, onAnswer }: PoolSelectProps): ReactElement {
             placeholder="Escribe al menos 3 caracteres..."
             value={query}
             onChange={handleInputChange}
-            onFocus={() => query.length >= MIN_CHARS && setDropdownOpen(true)}
+            onFocus={() => query.length >= minChars && setDropdownOpen(true)}
             onBlur={handleBlur}
             disabled={answered}
           />
