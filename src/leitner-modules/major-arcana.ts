@@ -118,7 +118,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
         },
         {
           question: 'Principio energético',
-          answer: principios.yang,
+          answer: principios.yin,
           quizType: 'multi-choice',
           options: [principios.yang, principios.yin],
         },
@@ -262,7 +262,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
         },
         {
           question: 'Principio energético',
-          answer: principios.yang,
+          answer: principios.yin,
           quizType: 'multi-choice',
           options: [principios.yang, principios.yin],
         },
@@ -406,7 +406,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
         },
         {
           question: 'Principio energético',
-          answer: principios.yang,
+          answer: principios.yin,
           quizType: 'multi-choice',
           options: [principios.yang, principios.yin],
         },
@@ -1126,7 +1126,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
         },
         {
           question: 'Principio energético',
-          answer: principios.yang,
+          answer: principios.yin,
           quizType: 'multi-choice',
           options: [principios.yang, principios.yin],
         },
@@ -1560,7 +1560,7 @@ export const MAJOR_ARCANA_MODULE: ILeitnerModule<'major-arcana'> = {
         },
         {
           question: 'Principio energético',
-          answer: principios.yang,
+          answer: principios.yin,
           quizType: 'multi-choice',
           options: [principios.yang, principios.yin],
         },
